@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "atom-package-deps": "^4.6.2",
-    "mume-with-litvis": "^0.7.0"
+    "mume-with-litvis": "^0.8.0"
   },
   "devDependencies": {
     "@types/atom": "^1.25.0",
