@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "atom-package-deps": "^4.6.2",
-    "mume-with-litvis": "^0.8.0"
+    "mume-with-litvis": "^0.9.0"
   },
   "devDependencies": {
     "@types/atom": "^1.25.0",
@@ -76,12 +76,7 @@
     "tslint-config-prettier": "^1.10.0",
     "typescript": "^2.7.2"
   },
-  "package-deps": [
-    "linter-ui-default",
-    "intentions",
-    "linter",
-    "busy-signal"
-  ],
+  "package-deps": ["linter-ui-default", "intentions", "linter", "busy-signal"],
   "consumedServices": {
     "linter-indie": {
       "versions": {
