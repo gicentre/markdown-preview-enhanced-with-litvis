@@ -1,6 +1,15 @@
+## 0.10.0
+
+*   **Switch to Elm 0.19**. Elm 0.18 users please use version 0.9.0 of this atom package (`apm install markdown-preview-enhanced-with-litvis@0.9.0`)
+*   Upgrade vega to 4.3.0, vega-lite to 3.0.0-rc6 and vega-embed to 3.20.0
+
+## 0.9.0
+
+*  Upgrade vega to 4.2.0, Vega-Lite to 3.0.0-rc3 and vega-embed to 3.18.2
+
 ## 0.7.0
 
-*   Improve parsing of narrative schemas, support label aliases and fix rules.
+*   Improve parsing of narrative schemas, support label aliases and fix rules
 
 ## 0.6.1
 
