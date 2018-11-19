@@ -1,3 +1,7 @@
+## 0.11.0
+
+*   Implement markdown output from litvis blocks ([gicentre/litvis#10](https://github.com/gicentre/litvis/pull/10))
+
 ## 0.10.0
 
 *   **Switch to Elm 0.19**. Elm 0.18 users please use version 0.9.0 of this atom package (`apm install markdown-preview-enhanced-with-litvis@0.9.0`)
