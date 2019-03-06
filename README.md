@@ -74,9 +74,9 @@ Please follow these steps to enable full-featured formatting support for litvis 
 
     ```yaml
     overrides:
-    - files: "*.md"
-      options:
-      tabWidth: 4
+      - files: "*.md"
+        options:
+        tabWidth: 4
     ```
 
     Doing this via bash:
