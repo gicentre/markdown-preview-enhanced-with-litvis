@@ -9,7 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const atom_1 = require("atom");
+const fs_extra_1 = require("fs-extra");
 const mume = require("mume-with-litvis");
+const os = require("os");
 const path = require("path");
 const config_1 = require("./config");
 const linting_1 = require("./linting");
@@ -77,6 +79,9 @@ function getPreviewForEditor(editor) {
     else {
         return null;
     }
+}
+function clearCache() {
+    fs_extra_1.emptyDir(path.resolve(os.homedir(), ".mume/literate-elm"));
 }
 /**
  * Toggle markdown preview
@@ -154,6 +159,7 @@ function activate(state) {
         }));
         // Register commands
         subscriptions.add(atom.commands.add("atom-workspace", {
+            "markdown-preview-enhanced-with-litvis:clear-cache": clearCache,
             "markdown-preview-enhanced-with-litvis:toggle": togglePreview,
             "markdown-preview-enhanced-with-litvis:customize-css": customizeCSS,
             "markdown-preview-enhanced-with-litvis:create-toc": createTOC,

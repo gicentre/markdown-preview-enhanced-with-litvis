@@ -1,5 +1,7 @@
 import { CompositeDisposable, TextBuffer, TextEditor } from "atom";
+import { emptyDir } from "fs-extra";
 import * as mume from "mume-with-litvis";
+import * as os from "os";
 import * as path from "path";
 import { MarkdownPreviewEnhancedConfig } from "./config";
 import { updateLintingReport } from "./linting";
@@ -70,6 +72,10 @@ function getPreviewForEditor(editor) {
   } else {
     return null;
   }
+}
+
+function clearCache() {
+  emptyDir(path.resolve(os.homedir(), ".mume/literate-elm"));
 }
 
 /**
@@ -163,6 +169,7 @@ export function activate(state) {
       // Register commands
       subscriptions.add(
         atom.commands.add("atom-workspace", {
+          "markdown-preview-enhanced-with-litvis:clear-cache": clearCache,
           "markdown-preview-enhanced-with-litvis:toggle": togglePreview,
           "markdown-preview-enhanced-with-litvis:customize-css": customizeCSS,
           "markdown-preview-enhanced-with-litvis:create-toc": createTOC,
