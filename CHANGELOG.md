@@ -1,3 +1,7 @@
+## 0.15.1
+
+- Downgrade vega from 5.3.0 to 5.1.0 to avoid `Error: Cycle detected in dataflow graph`
+
 ## 0.15.0
 
 - New command: _Markdown Preview Enhanced with Litvis: Clear Cache_ (useful when need to upgrade Elm dependencies or when cache is corrupt)
