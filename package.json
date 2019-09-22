@@ -61,7 +61,7 @@
   "dependencies": {
     "atom-package-deps": "^4.6.2",
     "fs-extra": "^7.0.1",
-    "@shd101wyy/mume": "^0.4.6"
+    "mume-with-litvis": "^0.15.0"
   },
   "package-deps": [
     "linter-ui-default",
