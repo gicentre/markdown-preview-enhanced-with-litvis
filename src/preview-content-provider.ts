@@ -331,7 +331,7 @@ export class MarkdownPreviewEnhancedView {
       this.refreshPreview();
     },
     revealLine(sourceUri, line) {
-      this.scrollToBufferPosition(line);
+      this._scrollToBufferPosition(line);
     },
     insertImageUrl(sourceUri, imageUrl) {
       if (this.editor) {
@@ -363,9 +363,6 @@ export class MarkdownPreviewEnhancedView {
     },
     chromeExport(sourceUri, fileType) {
       this.chromeExport(fileType);
-    },
-    phantomjsExport(sourceUri, fileType) {
-      this.phantomjsExport(fileType);
     },
     princeExport(sourceUri) {
       this.princeExport();
@@ -452,7 +449,7 @@ export class MarkdownPreviewEnhancedView {
 
   private webviewConsoleMessage(event) {
     // tslint:disable-next-line:no-console
-    console.log("webview: ", event.message);
+    // console.log("webview: ", event.message);
   }
 
   private webviewKeyDown(event) {
@@ -681,7 +678,7 @@ export class MarkdownPreviewEnhancedView {
    * Please notice that row is in center.
    * @param row The buffer row
    */
-  public scrollToBufferPosition(row) {
+  public _scrollToBufferPosition(row) {
     if (!this.editor) {
       return;
     }
@@ -696,7 +693,10 @@ export class MarkdownPreviewEnhancedView {
 
     const editorElement = this.editor["getElement"]();
     const delay = 10;
-    const screenRow = this.editor.screenPositionForBufferPosition([row, 0]).row;
+    const screenRow = this.editor.screenPositionForBufferPosition({
+      row,
+      column: 0,
+    }).row;
     const scrollTop =
       screenRow * this.editor["getLineHeightInPixels"]() -
       this.element.offsetHeight / 2;
@@ -818,31 +818,6 @@ export class MarkdownPreviewEnhancedView {
         atom.notifications.addSuccess(
           `File \`${path.basename(dest)}\` was created at path: \`${dest}\``,
         );
-      })
-      .catch((error) => {
-        atom.notifications.addError(error.toString());
-      });
-  }
-
-  public phantomjsExport(fileType = "pdf") {
-    atom.notifications.addInfo("Your document is being prepared");
-    this.engine
-      .phantomjsExport({ fileType, openFileAfterGeneration: true })
-      .then((dest) => {
-        if (dest.endsWith("?print-pdf")) {
-          // presentation pdf
-          atom.notifications.addSuccess(
-            `Please copy and open the following link in Chrome, then print as PDF`,
-            {
-              dismissable: true,
-              detail: `Path: \`${dest}\``,
-            },
-          );
-        } else {
-          atom.notifications.addSuccess(
-            `File \`${path.basename(dest)}\` was created at path: \`${dest}\``,
-          );
-        }
       })
       .catch((error) => {
         atom.notifications.addError(error.toString());

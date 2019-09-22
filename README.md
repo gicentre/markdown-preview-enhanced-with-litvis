@@ -30,7 +30,13 @@ If you don’t have npm, please download it as a part of Node.js from https://no
 1.  Switch to _Install_ section in _Preferences_ and search for `markdown-preview-enhanced-with-litvis`.
     Click _Install_ and reload Atom.
 
+<<<<<<< HEAD
 ### Via command line
+=======
+- [English](https://shd101wyy.github.io/markdown-preview-enhanced/#/)
+- [简体中文](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/)
+- [正體中文](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-tw/)
+>>>>>>> 8115cd7eac8cd4377a7cbe935175be53348bb97f
 
 ```
 apm disable markdown-preview markdown-preview-enhanced

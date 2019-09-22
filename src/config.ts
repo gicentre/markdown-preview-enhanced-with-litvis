@@ -2,6 +2,75 @@ import { CompositeDisposable } from "atom";
 import { MarkdownEngineConfig } from "mume-with-litvis";
 import { MathRenderingOption } from "mume-with-litvis/out/src/markdown-engine-config";
 
+const copyValue = (v) => v;
+const parseJsonOrDefault = (def: any) => (raw: any) => {
+  try {
+    return JSON.parse(raw);
+  } catch (error) {
+    return def;
+  }
+};
+
+const parseListOrDefault = (def: any) => (raw: any) => {
+  return (
+    raw
+      .split(",")
+      .map((x) => x.trim())
+      .filter((x) => x.length) || def
+  );
+};
+
+const ConfigSettings: { [key: string]: (val: any) => any } = {
+  usePandocParser: copyValue,
+  breakOnSingleNewLine: copyValue,
+  enableTypographer: copyValue,
+  enableLinkify: copyValue,
+  enableWikiLinkSyntax: copyValue,
+  enableEmojiSyntax: copyValue,
+  enableExtendedTableSyntax: copyValue,
+  enableCriticMarkupSyntax: copyValue,
+  wikiLinkFileExtension: copyValue,
+  protocolsWhiteList: copyValue,
+  mathRenderingOption: copyValue,
+  mathRenderingOnlineService: copyValue,
+  codeBlockTheme: copyValue,
+  previewTheme: copyValue,
+  revealjsTheme: copyValue,
+  mermaidTheme: copyValue,
+  frontMatterRenderingOption: copyValue,
+  imageFolderPath: copyValue,
+  printBackground: copyValue,
+  chromePath: copyValue,
+  imageMagickPath: copyValue,
+  pandocPath: copyValue,
+  pandocMarkdownFlavor: copyValue,
+  enableHTML5Embed: copyValue,
+  HTML5EmbedUseImageSyntax: copyValue,
+  HTML5EmbedUseLinkSyntax: copyValue,
+  HTML5EmbedIsAllowedHttp: copyValue,
+  HTML5EmbedAudioAttributes: copyValue,
+  HTML5EmbedVideoAttributes: copyValue,
+  puppeteerWaitForTimeout: (v) => {
+    return parseInt(v, 10) || 0;
+  },
+  usePuppeteerCore: copyValue,
+
+  scrollSync: copyValue,
+  liveUpdate: copyValue,
+  previewPanePosition: copyValue,
+  openPreviewPaneAutomatically: copyValue,
+  automaticallyShowPreviewOfMarkdownBeingEdited: copyValue,
+  closePreviewAutomatically: copyValue,
+  imageUploader: copyValue,
+  latexEngine: copyValue,
+  enableScriptExecution: copyValue,
+  singlePreview: copyValue,
+  mathInlineDelimiters: parseJsonOrDefault([["$", "$"], ["\\(", "\\)"]]),
+  mathBlockDelimiters: parseJsonOrDefault([["$$", "$$"], ["\\[", "\\]"]]),
+  pandocArguments: parseListOrDefault([]),
+  fileExtension: parseListOrDefault([".md", ".mmark", ".markdown"]),
+};
+
 export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
   public static getCurrentConfig() {
     return new MarkdownPreviewEnhancedConfig();
@@ -13,6 +82,7 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
   public usePandocParser: boolean;
   public breakOnSingleNewLine: boolean;
   public enableTypographer: boolean;
+  public enableLinkify: boolean;
   public enableWikiLinkSyntax: boolean;
   public wikiLinkFileExtension: string;
   public enableEmojiSyntax: boolean;
@@ -22,6 +92,7 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
   public mathRenderingOption: MathRenderingOption;
   public mathInlineDelimiters: string[][];
   public mathBlockDelimiters: string[][];
+  public mathRenderingOnlineService: string;
   public codeBlockTheme: string;
   public previewTheme: string;
   public revealjsTheme: string;
@@ -29,12 +100,21 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
   public frontMatterRenderingOption: string;
   public imageFolderPath: string;
   public printBackground: boolean;
-  public phantomPath: string;
+  public chromePath: string;
+  public imageMagickPath: string;
   public pandocPath: string;
   public pandocMarkdownFlavor: string;
   public pandocArguments: string[];
   public latexEngine: string;
   public enableScriptExecution: boolean;
+  public enableHTML5Embed: boolean;
+  public HTML5EmbedUseImageSyntax: boolean;
+  public HTML5EmbedUseLinkSyntax: boolean;
+  public HTML5EmbedIsAllowedHttp: boolean;
+  public HTML5EmbedAudioAttributes: string;
+  public HTML5EmbedVideoAttributes: string;
+  public puppeteerWaitForTimeout: number;
+  public usePuppeteerCore: boolean;
 
   /*
    * Extra config for mpe
@@ -53,6 +133,7 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
   public imageDropAction: string;
 
   public constructor() {
+<<<<<<< HEAD
     /*
      * MarkdownEngineConfig properties
      */
@@ -470,6 +551,31 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
         },
       ),
     );
+=======
+    for (const name in ConfigSettings) {
+      if (ConfigSettings.hasOwnProperty(name)) {
+        const transform = ConfigSettings[name];
+        const rawValue = atom.config.get(`markdown-preview-enhanced.${name}`);
+        this[name] = transform(rawValue);
+      }
+    }
+  }
+
+  public onDidChange(subscriptions: CompositeDisposable, callback) {
+    for (const name in ConfigSettings) {
+      if (ConfigSettings.hasOwnProperty(name)) {
+        const transform = ConfigSettings[name];
+        const subscription = atom.config.onDidChange(
+          `markdown-preview-enhanced.${name}`,
+          ({ newValue }) => {
+            this[name] = transform(newValue);
+            callback();
+          },
+        );
+        subscriptions.add(subscription);
+      }
+    }
+>>>>>>> 8115cd7eac8cd4377a7cbe935175be53348bb97f
   }
 
   [key: string]: any;

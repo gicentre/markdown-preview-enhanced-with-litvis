@@ -125,7 +125,7 @@ function startPreview(editor) {
     } else {
       preview = new MarkdownPreviewEnhancedView(
         "mpe://" + editor.getPath(),
-        config,
+        config
       );
       previewsMap[editor.getPath()] = preview;
     }
@@ -140,7 +140,7 @@ function startPreview(editor) {
 export function activate(state) {
   if (!atom.inSpecMode()) {
     require("atom-package-deps").install(
-      "markdown-preview-enhanced-with-litvis",
+      "markdown-preview-enhanced-with-litvis"
     );
   }
   mume
@@ -155,7 +155,7 @@ export function activate(state) {
 
       // Set opener
       subscriptions.add(
-        atom.workspace.addOpener((uri) => {
+        atom.workspace.addOpener(uri => {
           if (uri.startsWith("mpe://")) {
             if (config.singlePreview) {
               return getSinglePreview();
@@ -163,13 +163,12 @@ export function activate(state) {
               return previewsMap[uri.replace("mpe://", "")];
             }
           }
-        }),
+        })
       );
 
       // Register commands
       subscriptions.add(
         atom.commands.add("atom-workspace", {
-          "markdown-preview-enhanced-with-litvis:clear-cache": clearCache,
           "markdown-preview-enhanced-with-litvis:toggle": togglePreview,
           "markdown-preview-enhanced-with-litvis:customize-css": customizeCSS,
           "markdown-preview-enhanced-with-litvis:create-toc": createTOC,
@@ -179,16 +178,16 @@ export function activate(state) {
           "markdown-preview-enhanced-with-litvis:insert-table": insertTable,
           "markdown-preview-enhanced-with-litvis:image-helper": startImageHelper,
           "markdown-preview-enhanced-with-litvis:open-mermaid-config": openMermaidConfig,
-          "markdown-preview-enhanced-with-litvis:open-phantomjs-config": openPhantomJSConfig,
           "markdown-preview-enhanced-with-litvis:open-mathjax-config": openMathJaxConfig,
+          "markdown-preview-enhanced-with-litvis:open-katex-config": openKaTeXConfig,
           "markdown-preview-enhanced-with-litvis:extend-parser": extendParser,
           "markdown-preview-enhanced-with-litvis:insert-new-slide": insertNewSlide,
           "markdown-preview-enhanced-with-litvis:insert-page-break": insertPageBreak,
           "markdown-preview-enhanced-with-litvis:toggle-zen-mode": toggleZenMode,
           "markdown-preview-enhanced-with-litvis:run-code-chunk": runCodeChunkCommand,
           "markdown-preview-enhanced-with-litvis:run-all-code-chunks": runAllCodeChunks,
-          "markdown-preview-enhanced-with-litvis:show-uploaded-images": showUploadedImages,
-        }),
+          "markdown-preview-enhanced-with-litvis:show-uploaded-images": showUploadedImages
+        })
       );
 
       // When the preview is displayed
@@ -223,13 +222,13 @@ export function activate(state) {
               }
             }
           }
-        }),
+        })
       );
 
       // automatically open preview when activate a markdown file
       // if 'openPreviewPaneAutomatically' option is enabled.
       subscriptions.add(
-        atom.workspace.onDidOpen((event) => {
+        atom.workspace.onDidOpen(event => {
           if (config.openPreviewPaneAutomatically) {
             if (
               event.uri &&
@@ -259,7 +258,7 @@ export function activate(state) {
             if (editor && editor["buffer"]) {
               if (
                 atom.config.get(
-                  "markdown-preview-enhanced-with-litvis.enableZenMode",
+                  "markdown-preview-enhanced-with-litvis.enableZenMode"
                 )
               ) {
                 editorElement.setAttribute("data-markdown-zen", "");
@@ -271,14 +270,14 @@ export function activate(state) {
             // drop drop image events
             bindMarkdownEditorDropEvents(editor);
           }
-        }),
+        })
       );
 
       // zen mode observation
       subscriptions.add(
         atom.config.observe(
           "markdown-preview-enhanced-with-litvis.enableZenMode",
-          (enableZenMode) => {
+          enableZenMode => {
             const paneItems = atom.workspace.getPaneItems();
             for (let i = 0; i < paneItems.length; i++) {
               const editor = paneItems[i];
@@ -310,15 +309,15 @@ export function activate(state) {
                 .getElementsByTagName("atom-workspace")[0]
                 .removeAttribute("data-markdown-zen");
             }
-          },
-        ),
+          }
+        )
       );
 
       // use single preview
       subscriptions.add(
         atom.config.onDidChange(
           "markdown-preview-enhanced-with-litvis.singlePreview",
-          (singlePreview) => {
+          singlePreview => {
             for (const sourceUri in previewsMap) {
               if (previewsMap.hasOwnProperty(sourceUri)) {
                 const preview = previewsMap[sourceUri];
@@ -327,18 +326,18 @@ export function activate(state) {
               }
             }
             previewsMap = {};
-          },
-        ),
+          }
+        )
       );
 
       // Check package version
       const packageVersion = require(path.resolve(
         __dirname,
-        "../../package.json",
+        "../../package.json"
       ))["version"];
       if (packageVersion !== mume.configs.config["atom_mpe_version"]) {
         mume.utility.updateExtensionConfig({
-          atom_mpe_version: packageVersion,
+          atom_mpe_version: packageVersion
         });
 
         // Don't open `welcome.md` file anymore.
@@ -362,7 +361,7 @@ function bindMarkdownEditorDropEvents(editor) {
         if (files[i].type.startsWith("image")) {
           // Drop image
           const imageDropAction = atom.config.get(
-            "markdown-preview-enhanced-with-litvis.imageDropAction",
+            "markdown-preview-enhanced-with-litvis.imageDropAction"
           );
           if (imageDropAction === "upload") {
             // upload image
@@ -371,7 +370,7 @@ function bindMarkdownEditorDropEvents(editor) {
             MarkdownPreviewEnhancedView.uploadImageFile(
               editor,
               imageFilePath,
-              config.imageUploader,
+              config.imageUploader
             );
           } else if (imageDropAction.startsWith("insert")) {
             // insert relative path
@@ -384,8 +383,8 @@ function bindMarkdownEditorDropEvents(editor) {
             editor.insertText(
               `![${description}](${path.relative(
                 path.dirname(editorPath),
-                imageFilePath,
-              )})`,
+                imageFilePath
+              )})`
             );
           } else if (imageDropAction.startsWith("copy")) {
             // copy to image folder
@@ -394,9 +393,9 @@ function bindMarkdownEditorDropEvents(editor) {
             MarkdownPreviewEnhancedView.pasteImageFile(
               editor,
               atom.config.get(
-                "markdown-preview-enhanced-with-litvis.imageFolderPath",
+                "markdown-preview-enhanced-with-litvis.imageFolderPath"
               ),
-              imageFilePath,
+              imageFilePath
             );
           }
         }
@@ -405,7 +404,7 @@ function bindMarkdownEditorDropEvents(editor) {
     }
 
     editorElement.ondrop = dropImageFile;
-    editorElement.ondragover = (event) => {
+    editorElement.ondragover = event => {
       event.preventDefault();
       event.stopPropagation();
       return false;
@@ -419,7 +418,7 @@ function bindMarkdownEditorDropEvents(editor) {
 function customizeCSS() {
   const globalStyleLessFile = path.resolve(
     utility.extensionConfigDirectoryPath,
-    "./style.less",
+    "./style.less"
   );
   atom.workspace.open(globalStyleLessFile);
 }
@@ -428,14 +427,14 @@ function createTOC() {
   const editor = atom.workspace.getActiveTextEditor();
   if (editor && editor.getBuffer()) {
     editor.insertText(
-      '\n<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->\n',
+      '\n<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->\n'
     );
   }
 }
 
 function toggleScrollSync() {
   const flag = atom.config.get(
-    "markdown-preview-enhanced-with-litvis.scrollSync",
+    "markdown-preview-enhanced-with-litvis.scrollSync"
   );
   atom.config.set("markdown-preview-enhanced-with-litvis.scrollSync", !flag);
 
@@ -448,7 +447,7 @@ function toggleScrollSync() {
 
 function toggleLiveUpdate() {
   const flag = atom.config.get(
-    "markdown-preview-enhanced-with-litvis.liveUpdate",
+    "markdown-preview-enhanced-with-litvis.liveUpdate"
   );
   atom.config.set("markdown-preview-enhanced-with-litvis.liveUpdate", !flag);
 
@@ -461,11 +460,11 @@ function toggleLiveUpdate() {
 
 function toggleBreakOnSingleNewLine() {
   const flag = atom.config.get(
-    "markdown-preview-enhanced-with-litvis.breakOnSingleNewLine",
+    "markdown-preview-enhanced-with-litvis.breakOnSingleNewLine"
   );
   atom.config.set(
     "markdown-preview-enhanced-with-litvis.breakOnSingleNewLine",
-    !flag,
+    !flag
   );
 
   if (!flag) {
@@ -498,31 +497,31 @@ function startImageHelper() {
 function openMermaidConfig() {
   const mermaidConfigFilePath = path.resolve(
     utility.extensionConfigDirectoryPath,
-    "./mermaid_config.js",
+    "./mermaid_config.js"
   );
   atom.workspace.open(mermaidConfigFilePath);
-}
-
-function openPhantomJSConfig() {
-  const phantomjsConfigFilePath = path.resolve(
-    utility.extensionConfigDirectoryPath,
-    "./phantomjs_config.js",
-  );
-  atom.workspace.open(phantomjsConfigFilePath);
 }
 
 function openMathJaxConfig() {
   const mathjaxConfigFilePath = path.resolve(
     utility.extensionConfigDirectoryPath,
-    "./mathjax_config.js",
+    "./mathjax_config.js"
   );
   atom.workspace.open(mathjaxConfigFilePath);
+}
+
+function openKaTeXConfig() {
+  const katexConfigFilePath = path.resolve(
+    utility.extensionConfigDirectoryPath,
+    "./katex_config.js"
+  );
+  atom.workspace.open(katexConfigFilePath);
 }
 
 function extendParser() {
   const parserConfigPath = path.resolve(
     utility.extensionConfigDirectoryPath,
-    "./parser.js",
+    "./parser.js"
   );
   atom.workspace.open(parserConfigPath);
 }
@@ -543,11 +542,11 @@ function insertPageBreak() {
 
 function toggleZenMode() {
   const enableZenMode = atom.config.get(
-    "markdown-preview-enhanced-with-litvis.enableZenMode",
+    "markdown-preview-enhanced-with-litvis.enableZenMode"
   );
   atom.config.set(
     "markdown-preview-enhanced-with-litvis.enableZenMode",
-    !enableZenMode,
+    !enableZenMode
   );
   if (!enableZenMode) {
     atom.notifications.addInfo("zen mode enabled");
@@ -579,7 +578,7 @@ function runAllCodeChunks() {
 function showUploadedImages() {
   const imageHistoryFilePath = path.resolve(
     utility.extensionConfigDirectoryPath,
-    "./image_history.md",
+    "./image_history.md"
   );
   atom.workspace.open(imageHistoryFilePath);
 }
@@ -593,7 +592,7 @@ function showUploadedImages() {
 async function onModifySource(
   codeChunkData: mume.CodeChunkData,
   result,
-  filePath,
+  filePath
 ) {
   function insertResult(i: number, editor: TextEditor, lines: string[]) {
     const lineCount = editor.getLineCount();
@@ -642,7 +641,7 @@ async function onModifySource(
         .getBuffer()
         .insert(
           [i + 1, 0],
-          `<!-- code_chunk_output -->\n\n${result}\n\n<!-- /code_chunk_output -->\n`,
+          `<!-- code_chunk_output -->\n\n${result}\n\n<!-- /code_chunk_output -->\n`
         );
       return "";
     }
@@ -659,7 +658,7 @@ async function onModifySource(
       const lines = editor.getBuffer().getLines();
       for (let i2 = 0; i2 < lineCount; i2++) {
         const line = lines[i2]; // editor.getBuffer().lines[i] will cause error.
-        if (line.match(/^```(.+)\"?cmd\"?\s*[:=]/)) {
+        if (line.match(/^```(.+)\"?cmd\"?\s*[=\s]/)) {
           if (codeChunkOffset === targetCodeChunkOffset) {
             i2 = i2 + 1;
             while (i2 < lineCount) {
@@ -672,7 +671,7 @@ async function onModifySource(
           } else {
             codeChunkOffset++;
           }
-        } else if (line.match(/\@import\s+(.+)\"?cmd\"?\s*[:=]/)) {
+        } else if (line.match(/\@import\s+(.+)\"?cmd\"?\s*[=\s]/)) {
           if (codeChunkOffset === targetCodeChunkOffset) {
             // console.log('find code chunk' )
             return insertResult(i2, editor, lines);

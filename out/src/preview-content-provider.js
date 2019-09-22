@@ -277,7 +277,7 @@ class MarkdownPreviewEnhancedView {
     }
     webviewConsoleMessage(event) {
         // tslint:disable-next-line:no-console
-        console.log("webview: ", event.message);
+        // console.log("webview: ", event.message);
     }
     webviewKeyDown(event) {
         let found = false;
@@ -468,7 +468,7 @@ class MarkdownPreviewEnhancedView {
      * Please notice that row is in center.
      * @param row The buffer row
      */
-    scrollToBufferPosition(row) {
+    _scrollToBufferPosition(row) {
         if (!this.editor) {
             return;
         }
@@ -481,7 +481,10 @@ class MarkdownPreviewEnhancedView {
         }
         const editorElement = this.editor["getElement"]();
         const delay = 10;
-        const screenRow = this.editor.screenPositionForBufferPosition([row, 0]).row;
+        const screenRow = this.editor.screenPositionForBufferPosition({
+            row,
+            column: 0,
+        }).row;
         const scrollTop = screenRow * this.editor["getLineHeightInPixels"]() -
             this.element.offsetHeight / 2;
         const helper = (duration = 0) => {
@@ -580,26 +583,6 @@ class MarkdownPreviewEnhancedView {
             .chromeExport({ fileType, openFileAfterGeneration: true })
             .then((dest) => {
             atom.notifications.addSuccess(`File \`${path.basename(dest)}\` was created at path: \`${dest}\``);
-        })
-            .catch((error) => {
-            atom.notifications.addError(error.toString());
-        });
-    }
-    phantomjsExport(fileType = "pdf") {
-        atom.notifications.addInfo("Your document is being prepared");
-        this.engine
-            .phantomjsExport({ fileType, openFileAfterGeneration: true })
-            .then((dest) => {
-            if (dest.endsWith("?print-pdf")) {
-                // presentation pdf
-                atom.notifications.addSuccess(`Please copy and open the following link in Chrome, then print as PDF`, {
-                    dismissable: true,
-                    detail: `Path: \`${dest}\``,
-                });
-            }
-            else {
-                atom.notifications.addSuccess(`File \`${path.basename(dest)}\` was created at path: \`${dest}\``);
-            }
         })
             .catch((error) => {
             atom.notifications.addError(error.toString());
@@ -850,7 +833,7 @@ MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
         this.refreshPreview();
     },
     revealLine(sourceUri, line) {
-        this.scrollToBufferPosition(line);
+        this._scrollToBufferPosition(line);
     },
     insertImageUrl(sourceUri, imageUrl) {
         if (this.editor) {
@@ -874,9 +857,6 @@ MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
     },
     chromeExport(sourceUri, fileType) {
         this.chromeExport(fileType);
-    },
-    phantomjsExport(sourceUri, fileType) {
-        this.phantomjsExport(fileType);
     },
     princeExport(sourceUri) {
         this.princeExport();
