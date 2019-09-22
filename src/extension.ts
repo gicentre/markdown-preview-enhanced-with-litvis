@@ -169,6 +169,7 @@ export function activate(state) {
       // Register commands
       subscriptions.add(
         atom.commands.add("atom-workspace", {
+          "markdown-preview-enhanced-with-litvis:clear-cache": clearCache,
           "markdown-preview-enhanced-with-litvis:toggle": togglePreview,
           "markdown-preview-enhanced-with-litvis:customize-css": customizeCSS,
           "markdown-preview-enhanced-with-litvis:create-toc": createTOC,
