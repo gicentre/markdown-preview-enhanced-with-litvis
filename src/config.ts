@@ -149,7 +149,7 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
       if (ConfigSettings.hasOwnProperty(name)) {
         const transform = ConfigSettings[name];
         const subscription = atom.config.onDidChange(
-          `markdown-preview-enhanced.${name}`,
+          `markdown-preview-enhanced-with-litvis.${name}`,
           ({ newValue }) => {
             this[name] = transform(newValue);
             callback();
