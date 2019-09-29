@@ -1,3 +1,7 @@
+## 0.17.0
+
+- Sync with upstream package to resolve various issues in the latest versions of editors (https://github.com/gicentre/markdown-preview-enhanced-with-litvis/pull/1)
+
 ## 0.16.0
 
 - Upgrade vega to 5.4.0 and vega-embed to 4.2.0
