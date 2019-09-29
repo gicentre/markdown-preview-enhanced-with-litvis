@@ -179,8 +179,8 @@ export function activate(state) {
           "markdown-preview-enhanced-with-litvis:insert-table": insertTable,
           "markdown-preview-enhanced-with-litvis:image-helper": startImageHelper,
           "markdown-preview-enhanced-with-litvis:open-mermaid-config": openMermaidConfig,
-          "markdown-preview-enhanced-with-litvis:open-phantomjs-config": openPhantomJSConfig,
           "markdown-preview-enhanced-with-litvis:open-mathjax-config": openMathJaxConfig,
+          "markdown-preview-enhanced-with-litvis:open-katex-config": openKaTeXConfig,
           "markdown-preview-enhanced-with-litvis:extend-parser": extendParser,
           "markdown-preview-enhanced-with-litvis:insert-new-slide": insertNewSlide,
           "markdown-preview-enhanced-with-litvis:insert-page-break": insertPageBreak,
@@ -503,20 +503,20 @@ function openMermaidConfig() {
   atom.workspace.open(mermaidConfigFilePath);
 }
 
-function openPhantomJSConfig() {
-  const phantomjsConfigFilePath = path.resolve(
-    utility.extensionConfigDirectoryPath,
-    "./phantomjs_config.js",
-  );
-  atom.workspace.open(phantomjsConfigFilePath);
-}
-
 function openMathJaxConfig() {
   const mathjaxConfigFilePath = path.resolve(
     utility.extensionConfigDirectoryPath,
     "./mathjax_config.js",
   );
   atom.workspace.open(mathjaxConfigFilePath);
+}
+
+function openKaTeXConfig() {
+  const katexConfigFilePath = path.resolve(
+    utility.extensionConfigDirectoryPath,
+    "./katex_config.js",
+  );
+  atom.workspace.open(katexConfigFilePath);
 }
 
 function extendParser() {
@@ -659,7 +659,7 @@ async function onModifySource(
       const lines = editor.getBuffer().getLines();
       for (let i2 = 0; i2 < lineCount; i2++) {
         const line = lines[i2]; // editor.getBuffer().lines[i] will cause error.
-        if (line.match(/^```(.+)\"?cmd\"?\s*[:=]/)) {
+        if (line.match(/^```(.+)\"?cmd\"?\s*[=\s]/)) {
           if (codeChunkOffset === targetCodeChunkOffset) {
             i2 = i2 + 1;
             while (i2 < lineCount) {
@@ -672,7 +672,7 @@ async function onModifySource(
           } else {
             codeChunkOffset++;
           }
-        } else if (line.match(/\@import\s+(.+)\"?cmd\"?\s*[:=]/)) {
+        } else if (line.match(/\@import\s+(.+)\"?cmd\"?\s*[=\s]/)) {
           if (codeChunkOffset === targetCodeChunkOffset) {
             // console.log('find code chunk' )
             return insertResult(i2, editor, lines);

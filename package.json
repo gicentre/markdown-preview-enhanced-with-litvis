@@ -40,7 +40,6 @@
     "pdf",
     "html",
     "exporter",
-    "phantomjs",
     "toc",
     "footer",
     "graphviz",
@@ -60,22 +59,9 @@
     "format-with-tests": "prettier --write --ignore-path .gitignore \"{.,src/**,test/**}/{*.{j,t}s,*.md,ts*.json}\""
   },
   "dependencies": {
-    "atom-package-deps": "^4.6.2",
-    "fs-extra": "^7.0.1",
-    "mume-with-litvis": "^0.15.0"
-  },
-  "devDependencies": {
-    "@types/atom": "^1.25.0",
-    "@types/jquery": "^3.3.0",
-    "@types/mocha": "^2.2.47",
-    "@types/node": "^9.4.0",
-    "@types/vfile": "^2.2.2",
-    "chinese-conv": "^1.0.1",
-    "prettier": "^1.16.4",
-    "prettier-check": "^2.0.0",
-    "tslint": "^5.9.1",
-    "tslint-config-prettier": "^1.10.0",
-    "typescript": "3.0"
+    "atom-package-deps": "^5.1.0",
+    "fs-extra": "^8.1.0",
+    "mume-with-litvis": "^0.16.0"
   },
   "package-deps": [
     "linter-ui-default",
@@ -89,5 +75,18 @@
         "2.0.0": "consumeIndie"
       }
     }
+  },
+  "devDependencies": {
+    "@types/atom": "^1.36.1",
+    "@types/jquery": "^3.3.31",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.8",
+    "@types/vfile": "^3.0.2",
+    "chinese-conv": "^1.0.1",
+    "prettier": "^1.18.2",
+    "prettier-check": "^2.0.0",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.3"
   }
 }

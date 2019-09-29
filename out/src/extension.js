@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -169,8 +170,8 @@ function activate(state) {
             "markdown-preview-enhanced-with-litvis:insert-table": insertTable,
             "markdown-preview-enhanced-with-litvis:image-helper": startImageHelper,
             "markdown-preview-enhanced-with-litvis:open-mermaid-config": openMermaidConfig,
-            "markdown-preview-enhanced-with-litvis:open-phantomjs-config": openPhantomJSConfig,
             "markdown-preview-enhanced-with-litvis:open-mathjax-config": openMathJaxConfig,
+            "markdown-preview-enhanced-with-litvis:open-katex-config": openKaTeXConfig,
             "markdown-preview-enhanced-with-litvis:extend-parser": extendParser,
             "markdown-preview-enhanced-with-litvis:insert-new-slide": insertNewSlide,
             "markdown-preview-enhanced-with-litvis:insert-page-break": insertPageBreak,
@@ -410,13 +411,13 @@ function openMermaidConfig() {
     const mermaidConfigFilePath = path.resolve(utility.extensionConfigDirectoryPath, "./mermaid_config.js");
     atom.workspace.open(mermaidConfigFilePath);
 }
-function openPhantomJSConfig() {
-    const phantomjsConfigFilePath = path.resolve(utility.extensionConfigDirectoryPath, "./phantomjs_config.js");
-    atom.workspace.open(phantomjsConfigFilePath);
-}
 function openMathJaxConfig() {
     const mathjaxConfigFilePath = path.resolve(utility.extensionConfigDirectoryPath, "./mathjax_config.js");
     atom.workspace.open(mathjaxConfigFilePath);
+}
+function openKaTeXConfig() {
+    const katexConfigFilePath = path.resolve(utility.extensionConfigDirectoryPath, "./katex_config.js");
+    atom.workspace.open(katexConfigFilePath);
 }
 function extendParser() {
     const parserConfigPath = path.resolve(utility.extensionConfigDirectoryPath, "./parser.js");
@@ -534,7 +535,7 @@ function onModifySource(codeChunkData, result, filePath) {
                 const lines = editor.getBuffer().getLines();
                 for (let i2 = 0; i2 < lineCount; i2++) {
                     const line = lines[i2]; // editor.getBuffer().lines[i] will cause error.
-                    if (line.match(/^```(.+)\"?cmd\"?\s*[:=]/)) {
+                    if (line.match(/^```(.+)\"?cmd\"?\s*[=\s]/)) {
                         if (codeChunkOffset === targetCodeChunkOffset) {
                             i2 = i2 + 1;
                             while (i2 < lineCount) {
@@ -549,7 +550,7 @@ function onModifySource(codeChunkData, result, filePath) {
                             codeChunkOffset++;
                         }
                     }
-                    else if (line.match(/\@import\s+(.+)\"?cmd\"?\s*[:=]/)) {
+                    else if (line.match(/\@import\s+(.+)\"?cmd\"?\s*[=\s]/)) {
                         if (codeChunkOffset === targetCodeChunkOffset) {
                             // console.log('find code chunk' )
                             return insertResult(i2, editor, lines);

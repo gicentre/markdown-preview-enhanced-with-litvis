@@ -1,4 +1,4 @@
-import { VFile, VFileBase } from "vfile";
+import { VFile } from "vfile";
 
 let linter;
 
@@ -8,7 +8,7 @@ export function consumeIndie(registerIndie) {
   });
 }
 
-export const updateLintingReport = (vFiles: Array<VFile<{}>> = []) => {
+export const updateLintingReport = (vFiles: VFile[] = []) => {
   if (!linter) {
     return;
   }

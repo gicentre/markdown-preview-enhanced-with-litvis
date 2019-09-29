@@ -46,9 +46,6 @@ You can press <kbd>cmd-shift-p</kbd>  in atom editor to toggle <strong> Command 
 - <strong> Markdown Preview Enhanced: Open Mermaid Config</strong>  
   Edit `mermaid` init configuration.  
 
-- <strong> Markdown Preview Enhanced: Open PhantomJS Config</strong>  
-  Edit `PhantomJS` export configuration.  
-
 - <strong> Markdown Preview Enhanced: Open Mathjax Config </strong>  
 	Edit `MathJax` init configuration.  
 
@@ -112,7 +109,7 @@ You can press <kbd>cmd-shift-p</kbd>  in atom editor to toggle <strong> Command 
 ## Package settings  
 
 ### Atom
-To open the package settings, press <kbd>cmd-shift-p</kbd> then chosee `Settings View: Open`, then click `Packages`.  
+To open the package settings, press <kbd>cmd-shift-p</kbd> then choose `Settings View: Open`, then click `Packages`.  
 
 Search `markdown-preview-enhanced` under `Installed Packages`:  
 ![screen shot 2017-06-06 at 3 57 22 pm](https://user-images.githubusercontent.com/1908863/26851561-d6b1ca30-4ad0-11e7-96fd-6e436b5de45b.png)

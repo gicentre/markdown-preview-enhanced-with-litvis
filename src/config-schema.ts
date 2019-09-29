@@ -136,17 +136,17 @@ export const configSchema = {
   },
   mermaidTheme: {
     description:
-      'Mermaid theme, you can choose one from ["mermaid.css", "mermaid.dark.css", "mermaid.forest.css"]',
-    default: "mermaid.css",
+      'Mermaid theme, you can choose one from ["default", "dark", "forest"]',
+    default: "default",
     type: "string",
-    enum: ["mermaid.css", "mermaid.dark.css", "mermaid.forest.css"],
+    enum: ["default", "dark", "forest"],
     order: 23,
   },
   protocolsWhiteList: {
     title: "Protocols Whitelist",
     type: "string",
-    default: "http, https, atom, file",
-    description: "Accepted protocols followed by `://` for links.",
+    default: "http://, https://, atom://, file://, mailto:, tel:",
+    description: "Accepted protocols for links.",
     order: 25,
   },
   mathRenderingOption: {
@@ -172,6 +172,18 @@ export const configSchema = {
     description:
       'Use customized Math expression block indicator. By default it is [["$$", "$$"]].',
     order: 32,
+  },
+  mathRenderingOnlineService: {
+    description:
+      "Choose the Math expression rendering method option for GFM markdown export (Save as Markdown).",
+    default: "https://latex.codecogs.com/gif.latex",
+    type: "string",
+    enum: [
+      "https://latex.codecogs.com/gif.latex",
+      "https://latex.codecogs.com/svg.latex",
+      "https://latex.codecogs.com/png.latex",
+    ],
+    order: 33,
   },
   usePandocParser: {
     title: "Use Pandoc Parser",
@@ -211,12 +223,21 @@ export const configSchema = {
       "Default LaTeX engine used for Pandoc export and LaTeX code chunk.",
     order: 39,
   },
-  phantomPath: {
-    title: "PhantomJS Options: Path",
+  chromePath: {
+    title: "Chrome executable path",
     type: "string",
-    default: "phantomjs",
-    description: "Please specify the correct path to your phantomjs executable",
+    default: "",
+    description:
+      "Chrome executable path, which is used for Puppeteer export. Leaving it empty means path will be found automatically.",
     order: 45,
+  },
+  imageMagickPath: {
+    title: "ImageMagick command line path",
+    type: "string",
+    default: "",
+    description:
+      "ImageMagick command line path should be either `magick` or `convert`. Leaving it empty means the path will be found automatically.",
+    order: 46,
   },
   enableWikiLinkSyntax: {
     title: "Enable Wiki Link syntax",
@@ -224,6 +245,14 @@ export const configSchema = {
     default: true,
     description:
       "Enable Wiki Link syntax support. More information can be found at https://help.github.com/articles/adding-links-to-wikis/",
+    order: 49,
+  },
+  enableLinkify: {
+    title: "Enable Linkify",
+    type: "boolean",
+    default: true,
+    description:
+      "Enable or disable conversion of URL-like text to links in the markdown preview.",
     order: 50,
   },
   wikiLinkFileExtension: {
@@ -307,11 +336,11 @@ Front matter is hidden by default, but you can choose between \`table\` (like [o
     title: "Drop image to editor",
     description: "What to do after you drop an image to editor",
     type: "string",
-    default: "upload",
+    default: "copy to image folder",
     enum: [
-      "upload",
       "insert relative path",
       "copy to image folder",
+      "upload",
       "do nothing",
     ],
     order: 77,
@@ -353,5 +382,73 @@ Front matter is hidden by default, but you can choose between \`table\` (like [o
     type: "boolean",
     default: false,
     order: 84,
+  },
+  enableHTML5Embed: {
+    title: "Enable HTML5 Embed",
+    description: `Enables transform audio video link to to html5 audio video tags.
+    
+**⚠️ You need to restart your editor to make this take effect.**
+`,
+    type: "boolean",
+    default: false,
+    order: 90,
+  },
+  HTML5EmbedUseImageSyntax: {
+    title: "HTML5 Embed Options: Use Image Syntax",
+    description: "Enables video/audio embed with ![]() syntax.",
+    type: "boolean",
+    default: true,
+    order: 91,
+  },
+
+  HTML5EmbedUseLinkSyntax: {
+    title: "HTML5 Embed Options: Use Link Syntax",
+    description: "Enables video/audio embed with []() syntax.",
+    type: "boolean",
+    default: true,
+    order: 92,
+  },
+
+  HTML5EmbedIsAllowedHttp: {
+    title: "HTML5 Embed Options: Allow Http Schema",
+    description:
+      "When true embed media with http:// schema in URLs. When false ignore and don't embed them.",
+    type: "boolean",
+    default: true,
+    order: 93,
+  },
+
+  HTML5EmbedAudioAttributes: {
+    title: "HTML5 Embed Options: Audio Attributes",
+    description: "HTML attributes to pass to audio tags",
+    type: "string",
+    default: 'controls preload="metadata"',
+    order: 94,
+  },
+
+  HTML5EmbedVideoAttributes: {
+    title: "HTML5 Embed Options: Video Attributes",
+    description: "HTML attributes to pass to video tags",
+    type: "string",
+    default: 'controls preload="metadata"',
+    order: 95,
+  },
+
+  puppeteerWaitForTimeout: {
+    title: "Puppeteer waitFor Timeout",
+    description:
+      "Puppeteer waits for a certain timeout in milliseconds before the document export.",
+    type: "number",
+    default: 0,
+    order: 100,
+  },
+
+  usePuppeteerCore: {
+    title: "Use puppeteer-core",
+    description:
+      "If set to true, then locally installed puppeteer-core will be required. Otherwise, the puppeteer globally installed by `npm install -g puppeteer` will be required.",
+    type: "boolean",
+    default: true,
+    order: 101,
   },
 };

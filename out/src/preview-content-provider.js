@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -277,7 +278,7 @@ class MarkdownPreviewEnhancedView {
     }
     webviewConsoleMessage(event) {
         // tslint:disable-next-line:no-console
-        console.log("webview: ", event.message);
+        // console.log("webview: ", event.message);
     }
     webviewKeyDown(event) {
         let found = false;
@@ -468,7 +469,7 @@ class MarkdownPreviewEnhancedView {
      * Please notice that row is in center.
      * @param row The buffer row
      */
-    scrollToBufferPosition(row) {
+    _scrollToBufferPosition(row) {
         if (!this.editor) {
             return;
         }
@@ -481,7 +482,10 @@ class MarkdownPreviewEnhancedView {
         }
         const editorElement = this.editor["getElement"]();
         const delay = 10;
-        const screenRow = this.editor.screenPositionForBufferPosition([row, 0]).row;
+        const screenRow = this.editor.screenPositionForBufferPosition({
+            row,
+            column: 0,
+        }).row;
         const scrollTop = screenRow * this.editor["getLineHeightInPixels"]() -
             this.element.offsetHeight / 2;
         const helper = (duration = 0) => {
@@ -580,26 +584,6 @@ class MarkdownPreviewEnhancedView {
             .chromeExport({ fileType, openFileAfterGeneration: true })
             .then((dest) => {
             atom.notifications.addSuccess(`File \`${path.basename(dest)}\` was created at path: \`${dest}\``);
-        })
-            .catch((error) => {
-            atom.notifications.addError(error.toString());
-        });
-    }
-    phantomjsExport(fileType = "pdf") {
-        atom.notifications.addInfo("Your document is being prepared");
-        this.engine
-            .phantomjsExport({ fileType, openFileAfterGeneration: true })
-            .then((dest) => {
-            if (dest.endsWith("?print-pdf")) {
-                // presentation pdf
-                atom.notifications.addSuccess(`Please copy and open the following link in Chrome, then print as PDF`, {
-                    dismissable: true,
-                    detail: `Path: \`${dest}\``,
-                });
-            }
-            else {
-                atom.notifications.addSuccess(`File \`${path.basename(dest)}\` was created at path: \`${dest}\``);
-            }
         })
             .catch((error) => {
             atom.notifications.addError(error.toString());
@@ -837,6 +821,7 @@ class MarkdownPreviewEnhancedView {
         this._destroyCB = cb;
     }
 }
+exports.MarkdownPreviewEnhancedView = MarkdownPreviewEnhancedView;
 MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
     webviewFinishLoading(sourceUri) {
         /**
@@ -850,7 +835,7 @@ MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
         this.refreshPreview();
     },
     revealLine(sourceUri, line) {
-        this.scrollToBufferPosition(line);
+        this._scrollToBufferPosition(line);
     },
     insertImageUrl(sourceUri, imageUrl) {
         if (this.editor) {
@@ -874,9 +859,6 @@ MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
     },
     chromeExport(sourceUri, fileType) {
         this.chromeExport(fileType);
-    },
-    phantomjsExport(sourceUri, fileType) {
-        this.phantomjsExport(fileType);
     },
     princeExport(sourceUri) {
         this.princeExport();
@@ -954,7 +936,6 @@ MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
         atom.workspace.open(imageHistoryFilePath);
     },
 };
-exports.MarkdownPreviewEnhancedView = MarkdownPreviewEnhancedView;
 function isMarkdownFile(sourcePath) {
     return false;
 }
