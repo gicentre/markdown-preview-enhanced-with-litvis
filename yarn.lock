@@ -1535,10 +1535,10 @@ ms@^2.0.0, ms@^2.1.1:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-mume-with-litvis@^0.16.0:
-  version "0.16.0"
-  resolved "https://registry.yarnpkg.com/mume-with-litvis/-/mume-with-litvis-0.16.0.tgz#da01af3521f76e2b8f9b6d846f0a4516c83c0055"
-  integrity sha512-bGgVnvys6ohBXVAfrAkpHMwEIzBgDRsfaFpAC87ccvALqUCK/dqJ08VpNkERYQB54y4tnTEG1Fc1UdfAqbcCRw==
+mume-with-litvis@^0.17.0:
+  version "0.17.0"
+  resolved "https://registry.yarnpkg.com/mume-with-litvis/-/mume-with-litvis-0.17.0.tgz#e5f8dbde865991b6e954af5d12b268c58220390d"
+  integrity sha512-b4o1D7WTO4Ln0pzhSPP5b+mO1J1ifBeFu//JWnZO66If/xgCLy33oL8rid4dV8TD8Q2Mt2i6Gg8rRm80PwL1Bg==
   dependencies:
     apache-arrow "^0.13.0"
     babyparse "^0.4.6"

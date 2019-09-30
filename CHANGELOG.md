@@ -1,3 +1,7 @@
+## 0.18.0
+
+- Upgrade vega to 5.7.0, vega-lite to 4.0.0-beta.8, vega-embed to 5.1.3 and vega-loader-arrow to 0.14.1
+
 ## 0.17.0
 
 - Sync with upstream package to resolve various issues in the latest versions of editors (https://github.com/gicentre/markdown-preview-enhanced-with-litvis/pull/1)
