@@ -32,15 +32,18 @@ If you don’t have npm, please download it as a part of Node.js from https://no
 
 ### Via command line
 
+This section contains shortcut commands for the instructions above.
+
 ```
-apm disable markdown-preview markdown-preview-enhanced
+apm disable markdown-preview
+apm disable markdown-preview-enhanced
 apm install markdown-preview-enhanced-with-litvis
 ```
 
 ## Getting started with litvis narratives
 
 Literate visualization uses [Elm](http://elm-lang.org) and [Vega-Lite](https://vega.github.io/vega-lite) in the form of a declarative visualization language [elm-vega](http://package.elm-lang.org/packages/gicentre/elm-vega/latest).
-While you don't have to use elm-vega in a litvis document it does enable quick declarative generation of interactive data graphics and therefore considerably enhances the capability of a litvis document.
+While you don't have to use elm-vega in a litvis document, it does enable quick declarative generation of interactive data graphics and therefore considerably enhances the capability of a litvis document.
 
 Creating your own litvis narrative is as easy as writing a markdown file.
 You can start with exploring the examples available at
@@ -48,7 +51,7 @@ https://github.com/gicentre/litvis/tree/master/examples.
 
 ## Formatting litvis narratives
 
-It is possible to automatically format litvis-enabled markdown files including embedded Elm code blocks with [Prettier](https://prettier.io/), which is an opinionated code formatting tool.
+It is possible to automatically format litvis-enabled markdown files (including Elm code blocks) using [Prettier](https://prettier.io/), which is a popular code formatting tool.
 
 Prettier is available in Atom via [`prettier-atom`](https://github.com/prettier/prettier-atom) package, but it does not format literate Elm code blocks in markdown files out of the box.
 
@@ -57,10 +60,8 @@ Please follow these steps to enable full-featured formatting support for litvis 
 1.  Globally install Prettier and its [Elm plugin](https://github.com/gicentre/prettier-plugin-elm) via npm:
 
     ```
-    npm install --global github:kachkaev/prettier#fix-global-plugin-api-dist prettier-plugin-elm
+    npm install --global prettier prettier-plugin-elm
     ```
-
-    > Installing from `github:kachkaev/prettier#...` instead of just `prettier` is necessary until [prettier/prettier#4192](https://github.com/prettier/prettier/pull/4192) is merged.
 
 1.  Install `prettier-atom` package via Atom’s _Preferences_ or from a command line:
 
@@ -70,24 +71,6 @@ Please follow these steps to enable full-featured formatting support for litvis 
 
 1.  Enable _Format on save_ in `prettier-atom` package preferences.
 
-1.  _(optional)_ Configure Prettier globally by creating `~/.prettierrc` with the following yaml:
-
-    ```yaml
-    overrides:
-      - files: "*.md"
-        options:
-        tabWidth: 4
-    ```
-
-    Doing this via bash:
-
-    ```bash
-    echo -e "overrides:\n- files: \"*.md\"\n  options:\n    tabWidth: 4" > ~/.prettierrc
-    ```
-
-
-    This will indent bullet point lists in markdowns with four spaces instead of two.
-
 ## Getting linting feedback for litvis narratives
 
 When a currently opened litvis narrative contains issues such as errors in Elm code blocks, you are automatically shown a list of problems via Atom's built-in linter.
@@ -95,7 +78,10 @@ When a currently opened litvis narrative contains issues such as errors in Elm c
 ![kapture 2018-03-26 at 21 00 45](https://user-images.githubusercontent.com/608862/37930310-4ba86c40-313a-11e8-99f5-a6b7ac99f38c.gif)
 
 If you have used Atom linting for any programming language before, all the necessary packages should be already installed.
-Otherwise, please install packages called [`linter`](https://atom.io/packages/linter), [`linter-ui-default`](https://atom.io/packages/linter-ui-default), [`intentions`](https://atom.io/packages/intentions) and [`busy-signal`](https://atom.io/packages/busy-signal).
+Otherwise, please install Atom packages named [`linter`](https://atom.io/packages/linter), [`linter-ui-default`](https://atom.io/packages/linter-ui-default), [`intentions`](https://atom.io/packages/intentions) and [`busy-signal`](https://atom.io/packages/busy-signal).
+
+You will be prompted to do so when you open a litvis document for the first time.
+Alternatively, you can install the packages via Atom’s _Preferences_ or by using the following command:
 
 ```bash
 apm install linter linter-ui-default intentions busy-signal
