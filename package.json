@@ -47,7 +47,7 @@
     "check:tslint": "tslint --project .",
     "fix": "npm run fix:tslint && npm run fix:prettier",
     "fix:prettier": "prettier --write \"**/*.*\"",
-    "fix:tslint": "tslint --project ."
+    "fix:tslint": "tslint --fix --project ."
   },
   "husky": {
     "hooks": {
