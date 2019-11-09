@@ -1,3 +1,7 @@
+## 0.20.0
+
+- Upgrade vega-lite to 4.0.0-beta.11, fix outdated vega versions in CDN links (affects interactive mode only)
+
 ## 0.19.0
 
 - Fix compatibility with Atom 1.41
