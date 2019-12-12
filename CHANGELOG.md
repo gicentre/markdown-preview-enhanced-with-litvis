@@ -1,3 +1,7 @@
+## 0.20.1
+
+- Upgrade vega to 5.9.0, vega-lite to 4.0.0 and vega-embed to 6.2.1
+
 ## 0.20.0
 
 - Upgrade vega-lite to 4.0.0-beta.11, fix outdated vega versions in CDN links (affects interactive mode only)

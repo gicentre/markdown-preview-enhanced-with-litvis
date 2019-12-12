@@ -63,7 +63,7 @@
   "dependencies": {
     "atom-package-deps": "^5.1.0",
     "fs-extra": "^8.1.0",
-    "mume-with-litvis": "^0.19.0"
+    "mume-with-litvis": "^0.19.1"
   },
   "devDependencies": {
     "@types/atom": "^1.36.1",
