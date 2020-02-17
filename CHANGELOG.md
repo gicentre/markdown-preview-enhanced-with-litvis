@@ -1,3 +1,7 @@
+# 0.22.0
+
+- Upgrade vega-lite to 4.3.1
+
 # 0.21.0
 
 - Upgrade vega to 5.9.1, vega-lite to 4.1.1 and vega-embed to 6.2.2
