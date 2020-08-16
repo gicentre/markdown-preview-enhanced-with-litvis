@@ -21,6 +21,7 @@ const parseListOrDefault = (def: any) => (raw: any) => {
 };
 
 const ConfigSettings: { [key: string]: (val: any) => any } = {
+  configPath: copyValue,
   usePandocParser: copyValue,
   breakOnSingleNewLine: copyValue,
   enableTypographer: copyValue,
@@ -65,10 +66,17 @@ const ConfigSettings: { [key: string]: (val: any) => any } = {
   latexEngine: copyValue,
   enableScriptExecution: copyValue,
   singlePreview: copyValue,
-  mathInlineDelimiters: parseJsonOrDefault([["$", "$"], ["\\(", "\\)"]]),
-  mathBlockDelimiters: parseJsonOrDefault([["$$", "$$"], ["\\[", "\\]"]]),
+  mathInlineDelimiters: parseJsonOrDefault([
+    ["$", "$"],
+    ["\\(", "\\)"],
+  ]),
+  mathBlockDelimiters: parseJsonOrDefault([
+    ["$$", "$$"],
+    ["\\[", "\\]"],
+  ]),
   pandocArguments: parseListOrDefault([]),
   fileExtension: parseListOrDefault([".md", ".mmark", ".markdown"]),
+  puppeteerArgs: parseListOrDefault([]),
 };
 
 export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
@@ -79,6 +87,7 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
   /*
    * MarkdownEngineConfig properties
    */
+  public configPath: string;
   public usePandocParser: boolean;
   public breakOnSingleNewLine: boolean;
   public enableTypographer: boolean;
@@ -115,6 +124,7 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
   public HTML5EmbedVideoAttributes: string;
   public puppeteerWaitForTimeout: number;
   public usePuppeteerCore: boolean;
+  public puppeteerArgs: string[];
 
   /*
    * Extra config for mpe

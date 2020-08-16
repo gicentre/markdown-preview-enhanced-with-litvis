@@ -738,9 +738,10 @@ class MarkdownPreviewEnhancedView {
         const lines = editor.getBuffer().getLines();
         const textLine = lines[bufferRow] || "";
         if (textLine.indexOf(hint) >= 0) {
-            editor
-                .getBuffer()
-                .setTextInRange([[bufferRow, 0], [bufferRow, textLine.length]], textLine.replace(hint, withStr));
+            editor.getBuffer().setTextInRange([
+                [bufferRow, 0],
+                [bufferRow, textLine.length],
+            ], textLine.replace(hint, withStr));
             return true;
         }
         return false;
@@ -925,14 +926,17 @@ MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
         else {
             line = line.replace(/\[[xX]\]/, "[ ]");
         }
-        buffer.setTextInRange([[dataLine, 0], [dataLine + 1, 0]], line + "\n");
+        buffer.setTextInRange([
+            [dataLine, 0],
+            [dataLine + 1, 0],
+        ], line + "\n");
     },
     setZoomLevel(sourceUri, zoomLevel) {
         this.setZoomLevel(zoomLevel);
     },
     showUploadedImageHistory(sourceUri) {
         this.activatePaneForEditor();
-        const imageHistoryFilePath = path.resolve(mume.utility.extensionConfigDirectoryPath, "./image_history.md");
+        const imageHistoryFilePath = path.resolve(mume.getExtensionConfigPath(), "./image_history.md");
         atom.workspace.open(imageHistoryFilePath);
     },
 };
