@@ -2,7 +2,7 @@
 'context-menu':
     'atom-text-editor': [
         {
-            'label': 'Markdown Preview Enhanced'
+            'label': 'Markdown Preview Enhanced with litvis'
             'submenu': [
                 {
                     'label': 'Toggle preview'
@@ -13,7 +13,7 @@
     ],
     'atom-workspace atom-text-editor[data-grammar*="gfm"]': [
         {
-            'label': 'Markdown Preview Enhanced',
+            'label': 'Markdown Preview Enhanced with litvis',
             'command': 'markdown-preview-enhanced-with-litvis:sync-preview'
             'submenu': [
                 {
@@ -27,7 +27,7 @@
     {
         'label': 'Packages'
         'submenu': [
-            'label': 'Markdown Preview Enhanced'
+            'label': 'Markdown Preview Enhanced with litvis'
             'submenu': [
                 {
                     'label': 'Toggle preview'
