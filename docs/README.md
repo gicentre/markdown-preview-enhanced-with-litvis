@@ -7,6 +7,8 @@ The goal of this project is to bring you a wonderful markdown writing experience
 
 Post [here](https://github.com/shd101wyy/markdown-preview-enhanced/issues) if you request new features or you want to report bugs ;)
 
+If you are interested, please also try out our new prototype web app: [0xGG/crossnote](https://github.com/0xGG/crossnote)
+
 ![intro](https://user-images.githubusercontent.com/1908863/28227953-eb6eefa4-68a1-11e7-8769-96ea83facf3b.png)
 
 ## Installation
@@ -40,7 +42,7 @@ Post [here](https://github.com/shd101wyy/markdown-preview-enhanced/issues) if yo
 
 ## Support this project
 
-Markdown Preview Enhanced is an open source project released under the [University of Illinois/NCSA Open Source License](LICENSE.md). Its ongoing development is made possible thanks to the support by these awesome [backers](backers.md). You can help make this project better by [supporting us on Patreon](https://www.patreon.com/shd101wyy), [PayPal](https://shd101wyy.github.io/markdown-preview-enhanced/#/paypal), or [微信支付 Wechat Pay](https://shd101wyy.github.io/markdown-preview-enhanced/#/wechat). Thank you!
+Markdown Preview Enhanced is an open source project released under the [University of Illinois/NCSA Open Source License](LICENSE.md). Its ongoing development is made possible thanks to the support by these awesome [backers](backers.md). You can help make this project better by [supporting us on GitHub Sponsors](https://github.com/sponsors/shd101wyy), [PayPal](https://shd101wyy.github.io/markdown-preview-enhanced/#/paypal), or [微信支付 Wechat Pay](https://shd101wyy.github.io/markdown-preview-enhanced/#/wechat). Thank you!
 
 ## Mume - The heart of this project
 

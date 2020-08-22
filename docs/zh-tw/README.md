@@ -7,6 +7,8 @@
 
 在 [這裡](https://github.com/shd101wyy/markdown-preview-enhanced/issues) 留言如果你發現了問題或者想要請求新的特性。
 
+如果妳感興趣的話，請同時嘗試壹下我們新的原型項目：[0xGG/crossnote](https://github.com/0xGG/crossnote)
+
 ![intro](https://user-images.githubusercontent.com/1908863/28227953-eb6eefa4-68a1-11e7-8769-96ea83facf3b.png)
 
 ## 安裝
@@ -40,7 +42,7 @@
 
 ## 支持這個項目
 
-Markdown Preview Enhanced 是一款由 [University of Illinois/NCSA Open Source License](LICENSE.md) 下發布的免費開源軟件。這個項目的持續開發脫離不了這些可敬的[贊助者們](backers.md)。你也可以使這個項目變的更好，到 [Patreon](https://www.patreon.com/shd101wyy)，[PayPal](https://shd101wyy.github.io/markdown-preview-enhanced/#/paypal)，或者 [微信支付 Wechat Pay](https://shd101wyy.github.io/markdown-preview-enhanced/#/wechat) 上來支持我們。謝謝！
+Markdown Preview Enhanced 是一款由 [University of Illinois/NCSA Open Source License](LICENSE.md) 下發布的免費開源軟件。這個項目的持續開發脫離不了這些可敬的[贊助者們](backers.md)。你也可以使這個項目變的更好，到 [GitHub Sponsors](https://github.com/sponsors/shd101wyy)，[PayPal](https://shd101wyy.github.io/markdown-preview-enhanced/#/paypal)，或者 [微信支付 Wechat Pay](https://shd101wyy.github.io/markdown-preview-enhanced/#/wechat) 上來支持我們。謝謝！
 
 ## Mume - 該項目的核心
 

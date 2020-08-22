@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.updateLintingReport = exports.consumeIndie = void 0;
 let linter;
 function consumeIndie(registerIndie) {
     linter = registerIndie({
