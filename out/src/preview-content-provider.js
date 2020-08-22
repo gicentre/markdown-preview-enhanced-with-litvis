@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isMarkdownFile = exports.MarkdownPreviewEnhancedView = void 0;
 const atom_1 = require("atom");
 const fs = require("fs");
 const mume = require("mume-with-litvis");
@@ -328,7 +329,7 @@ class MarkdownPreviewEnhancedView {
     initEditorEvents() {
         const editorElement = this.editor["getElement"](); // dunno why `getElement` not found.
         this.disposables.add(atom.commands.add(editorElement, {
-            "markdown-preview-enhanced:sync-preview": () => {
+            "markdown-preview-enhanced-with-litvis:sync-preview": () => {
                 this.syncPreview(true);
             },
         }));
@@ -384,7 +385,7 @@ class MarkdownPreviewEnhancedView {
         // as esc key doesn't work in atom,
         // I created command.
         this.disposables.add(atom.commands.add(this.element, {
-            "markdown-preview-enhanced:esc-pressed": () => {
+            "markdown-preview-enhanced-with-litvis:esc-pressed": () => {
                 // tslint:disable-next-line:no-console
                 console.log("esc pressed");
             },
@@ -780,10 +781,10 @@ class MarkdownPreviewEnhancedView {
             .substr(2, 9);
         const hint = `![Uploading ${imageFileName}… (${uid})]()`;
         const bufferRow = editor.getCursorBufferPosition().row;
-        const AccessKey = atom.config.get("markdown-preview-enhanced.AccessKey") || "";
-        const SecretKey = atom.config.get("markdown-preview-enhanced.SecretKey") || "";
-        const Bucket = atom.config.get("markdown-preview-enhanced.Bucket") || "";
-        const Domain = atom.config.get("markdown-preview-enhanced.Domain") || "";
+        const AccessKey = atom.config.get("markdown-preview-enhanced-with-litvis.AccessKey") || "";
+        const SecretKey = atom.config.get("markdown-preview-enhanced-with-litvis.SecretKey") || "";
+        const Bucket = atom.config.get("markdown-preview-enhanced-with-litvis.Bucket") || "";
+        const Domain = atom.config.get("markdown-preview-enhanced-with-litvis.Domain") || "";
         editor.insertText(hint);
         mume.utility
             .uploadImage(imageFilePath, {

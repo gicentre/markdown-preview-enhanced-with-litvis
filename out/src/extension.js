@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deactivate = exports.activate = void 0;
 const atom_1 = require("atom");
 const fs = require("fs-extra");
 const mume = require("mume-with-litvis");
@@ -138,7 +139,6 @@ function activate(state) {
     if (!atom.inSpecMode()) {
         require("atom-package-deps").install("markdown-preview-enhanced-with-litvis");
     }
-    subscriptions = new atom_1.CompositeDisposable();
     subscriptions = new atom_1.CompositeDisposable();
     // Init config
     config = new config_1.MarkdownPreviewEnhancedConfig();
@@ -287,34 +287,6 @@ function activate(state) {
         }));
         // Check package version
         const packageVersion = require(path.resolve(__dirname, "../../package.json"))["version"];
-        if (packageVersion !== mume.configs.config["atom_mpe_version"]) {
-            const mpeConfig = Object.assign({}, mume.configs.config, {
-                atom_mpe_version: packageVersion,
-            });
-            fs.writeFileSync(path.resolve(mume.getExtensionConfigPath(), "config.json"), JSON.stringify(mpeConfig));
-            if (!mume.configs.config["atom_mpe_version"]) {
-                const noty = atom.notifications.addInfo("If you like using markdown-preview-enhanced, please consider sponsoring the developer to help make this project better 😊.", {
-                    dismissable: true,
-                    buttons: [
-                        {
-                            text: "Open GitHub Sponsors",
-                            onDidClick: () => {
-                                mume.utility.openFile("https://github.com/sponsors/shd101wyy");
-                                noty.dismiss();
-                            },
-                        },
-                        {
-                            text: "I already sponsored",
-                            onDidClick: () => {
-                                mpeConfig["already_sponsored"] = true;
-                                fs.writeFileSync(path.resolve(mume.getExtensionConfigPath(), "config.json"), JSON.stringify(mpeConfig));
-                                noty.dismiss();
-                            },
-                        },
-                    ],
-                });
-            }
-        }
     });
 }
 exports.activate = activate;
@@ -526,9 +498,10 @@ function onModifySource(codeChunkData, result, filePath) {
                 if (r === result + "\n") {
                     return "";
                 } // no need to modify output
-                editor
-                    .getBuffer()
-                    .setTextInRange([[start + 2, 0], [end - 1, 0]], result + "\n");
+                editor.getBuffer().setTextInRange([
+                    [start + 2, 0],
+                    [end - 1, 0],
+                ], result + "\n");
                 /*
                 editor.edit((edit)=> {
                   edit.replace(new vscode.Range(
@@ -594,7 +567,7 @@ function deactivate() {
 }
 exports.deactivate = deactivate;
 var config_schema_1 = require("./config-schema");
-exports.config = config_schema_1.configSchema;
+Object.defineProperty(exports, "config", { enumerable: true, get: function () { return config_schema_1.configSchema; } });
 var linting_2 = require("./linting");
-exports.consumeIndie = linting_2.consumeIndie;
+Object.defineProperty(exports, "consumeIndie", { enumerable: true, get: function () { return linting_2.consumeIndie; } });
 //# sourceMappingURL=extension.js.map
