@@ -1,3 +1,8 @@
+## 0.28.0
+
+- Sync this fork with the upstream project
+- Upgrade vega to 5.14.0 and vega-embed to 6.11.1, fix CDN vega versions
+
 ## 0.27.0
 
 - Upgrade vega-lite to 4.14.1 and vega-embed to 6.10.0
