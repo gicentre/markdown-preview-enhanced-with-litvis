@@ -24,11 +24,11 @@ apm install markdown-preview-enhanced
 
 - このプロジェクトを **Clone** します。
 - ダウンロードした **markdown-preview-enhanced** フォルダーに `cd` します。
-- `npm install` コマンドを実行します。次に、`apm link` コマンドを実行します。
+- `yarn install` コマンドを実行します。次に、`apm link` コマンドを実行します。
 
 ```bash
 cd the_path_to_folder/markdown-preview-enhanced
-npm install
+yarn install
 apm link # <- This will copy markdown-preview-enhanced folder to ~/.atom/packages
 ```
 
