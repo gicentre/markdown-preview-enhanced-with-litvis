@@ -1,3 +1,9 @@
+## 0.29.0
+
+- Upgrade vega to 5.15.0 and vega-lite to 4.15.0
+- Fix caching issue (<https://github.com/gicentre/litvis/issues/47>)
+- Bump dependencies
+
 ## 0.28.0
 
 - Sync this fork with the upstream project
@@ -7,27 +13,27 @@
 
 - Upgrade vega-lite to 4.14.1 and vega-embed to 6.10.0
 
-# 0.26.0
+## 0.26.0
 
 - Upgrade vega to 5.13.0, vega-lite to 4.13.1 and vega-embed to 6.9.0
 
-# 0.25.0
+## 0.25.0
 
 - Upgrade vega to 5.10.1, vega-lite to 4.10.2 and vega-embed to 6.5.2
 
-# 0.24.0
+## 0.24.0
 
 - Upgrade vega-lite to 4.8.1 and vega-embed to 6.5.1
 
-# 0.23.0
+## 0.23.0
 
 - Upgrade vega to 5.10.0, vega-lite to 4.5.1, vega-embed to 6.3.2 and apache-arrow to 0.16.0
 
-# 0.22.0
+## 0.22.0
 
 - Upgrade vega-lite to 4.3.1
 
-# 0.21.0
+## 0.21.0
 
 - Upgrade vega to 5.9.1, vega-lite to 4.1.1 and vega-embed to 6.2.2
 
