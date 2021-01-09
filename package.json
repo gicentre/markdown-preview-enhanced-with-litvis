@@ -65,11 +65,11 @@
   "dependencies": {
     "atom-package-deps": "^5.1.0",
     "fs-extra": "^9.0.1",
-    "mume-with-litvis": "^0.29.0"
+    "mume-with-litvis": "^0.30.0"
   },
   "devDependencies": {
     "@types/atom": "^1.40.4",
-    "@types/cheerio": "^0.22.21",
+    "@types/cheerio": "0.22.21",
     "@types/jquery": "^3.5.1",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.6.4",
