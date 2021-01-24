@@ -1,3 +1,8 @@
+## 0.32.0
+
+- Upgrade vega to 5.19.1
+- Upgrade `immer` to 8.0.1 to mitigate [CVE-2020-28477](https://nvd.nist.gov/vuln/detail/CVE-2020-28477)
+
 ## 0.31.0
 
 - Upgrade vega to 5.18.0, vega-embed to 6.15.0, apache-arrow to 2.0.0 and vega-loader-arrow to 0.0.9
