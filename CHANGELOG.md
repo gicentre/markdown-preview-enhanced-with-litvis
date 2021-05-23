@@ -1,3 +1,7 @@
+## 0.33.1
+
+- Fix apache arrow loader
+
 ## 0.33.0
 
 - Upgrade `vega-lite` from v4 to v5
