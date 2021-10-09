@@ -1,3 +1,9 @@
+## 0.34.0
+
+- Sync fork with the upstream `mume` library
+- Upgrade vega to 5.21.0, vega-lite to 5.1.1, vega-embed to 6.19.1 and vega-loader to 4.4.1
+- Upgrade some auxiliary dependencies and make a few small refactors
+
 ## 0.33.1
 
 - Fix apache arrow loader
