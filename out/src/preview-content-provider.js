@@ -945,7 +945,7 @@ MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
         atom.workspace.open(imageHistoryFilePath);
     },
     setPreviewTheme(sourceUri, previewTheme) {
-        atom.config.set("markdown-preview-enhanced.previewTheme", previewTheme);
+        atom.config.set("markdown-preview-enhanced-with-litvis.previewTheme", previewTheme);
     },
 };
 function isMarkdownFile(sourcePath) {
