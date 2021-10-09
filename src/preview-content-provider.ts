@@ -86,6 +86,7 @@ export class MarkdownPreviewEnhancedView {
         "./dependencies/electron-webview/preload.js",
       ),
     );
+    this.webview.setAttribute("enableremotemodule", "true");
 
     this.webview.addEventListener("dom-ready", () => {
       this._webviewDOMReady = true;
@@ -102,8 +103,7 @@ export class MarkdownPreviewEnhancedView {
       "console-message",
       this.webviewConsoleMessage.bind(this),
     );
-    this.webview.addEventListener("keydown", this.webviewKeyDown.bind(this));
-
+    // https://github.com/electron/electron/issues/14258#issuecomment-416893856
     this.element.appendChild(this.webview);
   }
 
@@ -327,6 +327,9 @@ export class MarkdownPreviewEnhancedView {
       // const preview = getPreviewForEditor(sourceUri)
       // if (preview) preview.renderMarkdown()
     },
+    keydown(sourceUri, event) {
+      this.webviewKeyDown(event);
+    },
     refreshPreview(sourceUri) {
       this.refreshPreview();
     },
@@ -450,6 +453,9 @@ export class MarkdownPreviewEnhancedView {
         "./image_history.md",
       );
       atom.workspace.open(imageHistoryFilePath);
+    },
+    setPreviewTheme(sourceUri, previewTheme) {
+      atom.config.set("markdown-preview-enhanced.previewTheme", previewTheme);
     },
   };
 

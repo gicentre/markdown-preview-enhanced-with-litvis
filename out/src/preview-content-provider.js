@@ -75,13 +75,14 @@ class MarkdownPreviewEnhancedView {
         this.webview.style.border = "none";
         this.webview.src = path.resolve(__dirname, "../../html/loading.html");
         this.webview.preload = mume.utility.addFileProtocol(path.resolve(mume.utility.extensionDirectoryPath, "./dependencies/electron-webview/preload.js"));
+        this.webview.setAttribute("enableremotemodule", "true");
         this.webview.addEventListener("dom-ready", () => {
             this._webviewDOMReady = true;
         });
         this.webview.addEventListener("did-stop-loading", this.webviewStopLoading.bind(this));
         this.webview.addEventListener("ipc-message", this.webviewReceiveMessage.bind(this));
         this.webview.addEventListener("console-message", this.webviewConsoleMessage.bind(this));
-        this.webview.addEventListener("keydown", this.webviewKeyDown.bind(this));
+        // https://github.com/electron/electron/issues/14258#issuecomment-416893856
         this.element.appendChild(this.webview);
     }
     getURI() {
@@ -833,6 +834,9 @@ MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
         // const preview = getPreviewForEditor(sourceUri)
         // if (preview) preview.renderMarkdown()
     },
+    keydown(sourceUri, event) {
+        this.webviewKeyDown(event);
+    },
     refreshPreview(sourceUri) {
         this.refreshPreview();
     },
@@ -939,6 +943,9 @@ MarkdownPreviewEnhancedView.MESSAGE_DISPATCH_EVENTS = {
         this.activatePaneForEditor();
         const imageHistoryFilePath = path.resolve(mume.getExtensionConfigPath(), "./image_history.md");
         atom.workspace.open(imageHistoryFilePath);
+    },
+    setPreviewTheme(sourceUri, previewTheme) {
+        atom.config.set("markdown-preview-enhanced.previewTheme", previewTheme);
     },
 };
 function isMarkdownFile(sourcePath) {

@@ -1,4 +1,4 @@
-import { CompositeDisposable, TextBuffer, TextEditor } from "atom";
+import { CompositeDisposable, TextEditor } from "atom";
 import * as fs from "fs-extra";
 import * as mume from "mume-with-litvis";
 import * as os from "os";
