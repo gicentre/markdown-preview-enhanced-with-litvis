@@ -13,7 +13,6 @@ exports.deactivate = exports.activate = void 0;
 const atom_1 = require("atom");
 const fs = require("fs-extra");
 const mume = require("mume-with-litvis");
-const os = require("os");
 const path = require("path");
 const config_1 = require("./config");
 const linting_1 = require("./linting");
@@ -82,7 +81,7 @@ function getPreviewForEditor(editor) {
     }
 }
 function clearCache() {
-    fs.emptyDir(path.resolve(os.homedir(), ".mume/literate-elm"));
+    fs.emptyDir(path.resolve(mume.utility.getConfigPath(), "literate-elm"));
 }
 /**
  * Toggle markdown preview

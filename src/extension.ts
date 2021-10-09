@@ -1,7 +1,6 @@
-import { CompositeDisposable, TextBuffer, TextEditor } from "atom";
+import { CompositeDisposable, TextEditor } from "atom";
 import * as fs from "fs-extra";
 import * as mume from "mume-with-litvis";
-import * as os from "os";
 import * as path from "path";
 import { MarkdownPreviewEnhancedConfig } from "./config";
 import { updateLintingReport } from "./linting";
@@ -73,7 +72,7 @@ function getPreviewForEditor(editor) {
 }
 
 function clearCache() {
-  fs.emptyDir(path.resolve(os.homedir(), ".mume/literate-elm"));
+  fs.emptyDir(path.resolve(mume.utility.getConfigPath(), "literate-elm"));
 }
 
 /**
