@@ -1,8 +1,9 @@
-import * as mume from "@shd101wyy/mume";
 import { CompositeDisposable, TextEditor } from "atom";
-import * as fs from "fs";
+import * as fs from "fs-extra";
+import * as mume from "mume-with-litvis";
 import * as path from "path";
 import { MarkdownPreviewEnhancedConfig } from "./config";
+import { updateLintingReport } from "./linting";
 import { MarkdownPreviewEnhancedView } from "./preview-content-provider";
 
 let subscriptions: CompositeDisposable = null;
@@ -70,6 +71,10 @@ function getPreviewForEditor(editor) {
   }
 }
 
+function clearCache() {
+  fs.emptyDir(path.resolve(mume.utility.getConfigPath(), "literate-elm"));
+}
+
 /**
  * Toggle markdown preview
  */
@@ -130,6 +135,11 @@ function startPreview(editor) {
 }
 
 export function activate(state) {
+  if (!atom.inSpecMode()) {
+    require("atom-package-deps").install(
+      "markdown-preview-enhanced-with-litvis",
+    );
+  }
   subscriptions = new CompositeDisposable();
 
   // Init config
@@ -156,24 +166,25 @@ export function activate(state) {
       // Register commands
       subscriptions.add(
         atom.commands.add("atom-workspace", {
-          "markdown-preview-enhanced:toggle": togglePreview,
-          "markdown-preview-enhanced:customize-css": customizeCSS,
-          "markdown-preview-enhanced:create-toc": createTOC,
-          "markdown-preview-enhanced:toggle-scroll-sync": toggleScrollSync,
-          "markdown-preview-enhanced:toggle-live-update": toggleLiveUpdate,
-          "markdown-preview-enhanced:toggle-break-on-single-newline": toggleBreakOnSingleNewLine,
-          "markdown-preview-enhanced:insert-table": insertTable,
-          "markdown-preview-enhanced:image-helper": startImageHelper,
-          "markdown-preview-enhanced:open-mermaid-config": openMermaidConfig,
-          "markdown-preview-enhanced:open-mathjax-config": openMathJaxConfig,
-          "markdown-preview-enhanced:open-katex-config": openKaTeXConfig,
-          "markdown-preview-enhanced:extend-parser": extendParser,
-          "markdown-preview-enhanced:insert-new-slide": insertNewSlide,
-          "markdown-preview-enhanced:insert-page-break": insertPageBreak,
-          "markdown-preview-enhanced:toggle-zen-mode": toggleZenMode,
-          "markdown-preview-enhanced:run-code-chunk": runCodeChunkCommand,
-          "markdown-preview-enhanced:run-all-code-chunks": runAllCodeChunks,
-          "markdown-preview-enhanced:show-uploaded-images": showUploadedImages,
+          "markdown-preview-enhanced-with-litvis:clear-cache": clearCache,
+          "markdown-preview-enhanced-with-litvis:toggle": togglePreview,
+          "markdown-preview-enhanced-with-litvis:customize-css": customizeCSS,
+          "markdown-preview-enhanced-with-litvis:create-toc": createTOC,
+          "markdown-preview-enhanced-with-litvis:toggle-scroll-sync": toggleScrollSync,
+          "markdown-preview-enhanced-with-litvis:toggle-live-update": toggleLiveUpdate,
+          "markdown-preview-enhanced-with-litvis:toggle-break-on-single-newline": toggleBreakOnSingleNewLine,
+          "markdown-preview-enhanced-with-litvis:insert-table": insertTable,
+          "markdown-preview-enhanced-with-litvis:image-helper": startImageHelper,
+          "markdown-preview-enhanced-with-litvis:open-mermaid-config": openMermaidConfig,
+          "markdown-preview-enhanced-with-litvis:open-mathjax-config": openMathJaxConfig,
+          "markdown-preview-enhanced-with-litvis:open-katex-config": openKaTeXConfig,
+          "markdown-preview-enhanced-with-litvis:extend-parser": extendParser,
+          "markdown-preview-enhanced-with-litvis:insert-new-slide": insertNewSlide,
+          "markdown-preview-enhanced-with-litvis:insert-page-break": insertPageBreak,
+          "markdown-preview-enhanced-with-litvis:toggle-zen-mode": toggleZenMode,
+          "markdown-preview-enhanced-with-litvis:run-code-chunk": runCodeChunkCommand,
+          "markdown-preview-enhanced-with-litvis:run-all-code-chunks": runAllCodeChunks,
+          "markdown-preview-enhanced-with-litvis:show-uploaded-images": showUploadedImages,
         }),
       );
 
@@ -243,7 +254,11 @@ export function activate(state) {
             const editor = event.item;
             const editorElement = editor["getElement"]();
             if (editor && editor["buffer"]) {
-              if (atom.config.get("markdown-preview-enhanced.enableZenMode")) {
+              if (
+                atom.config.get(
+                  "markdown-preview-enhanced-with-litvis.enableZenMode",
+                )
+              ) {
                 editorElement.setAttribute("data-markdown-zen", "");
               } else {
                 editorElement.removeAttribute("data-markdown-zen");
@@ -259,7 +274,7 @@ export function activate(state) {
       // zen mode observation
       subscriptions.add(
         atom.config.observe(
-          "markdown-preview-enhanced.enableZenMode",
+          "markdown-preview-enhanced-with-litvis.enableZenMode",
           (enableZenMode) => {
             const paneItems = atom.workspace.getPaneItems();
             for (let i = 0; i < paneItems.length; i++) {
@@ -299,7 +314,7 @@ export function activate(state) {
       // use single preview
       subscriptions.add(
         atom.config.onDidChange(
-          "markdown-preview-enhanced.singlePreview",
+          "markdown-preview-enhanced-with-litvis.singlePreview",
           (singlePreview) => {
             for (const sourceUri in previewsMap) {
               if (previewsMap.hasOwnProperty(sourceUri)) {
@@ -318,48 +333,6 @@ export function activate(state) {
         __dirname,
         "../../package.json",
       ))["version"];
-      if (packageVersion !== mume.configs.config["atom_mpe_version"]) {
-        const mpeConfig = Object.assign({}, mume.configs.config, {
-          atom_mpe_version: packageVersion,
-        });
-        fs.writeFileSync(
-          path.resolve(mume.getExtensionConfigPath(), "config.json"),
-          JSON.stringify(mpeConfig),
-        );
-        if (!mume.configs.config["atom_mpe_version"]) {
-          const noty = atom.notifications.addInfo(
-            "If you like using markdown-preview-enhanced, please consider sponsoring the developer to help make this project better 😊.",
-            {
-              dismissable: true,
-              buttons: [
-                {
-                  text: "Open GitHub Sponsors",
-                  onDidClick: () => {
-                    mume.utility.openFile(
-                      "https://github.com/sponsors/shd101wyy",
-                    );
-                    noty.dismiss();
-                  },
-                },
-                {
-                  text: "I already sponsored",
-                  onDidClick: () => {
-                    mpeConfig["already_sponsored"] = true;
-                    fs.writeFileSync(
-                      path.resolve(
-                        mume.getExtensionConfigPath(),
-                        "config.json",
-                      ),
-                      JSON.stringify(mpeConfig),
-                    );
-                    noty.dismiss();
-                  },
-                },
-              ],
-            },
-          );
-        }
-      }
     });
 }
 
@@ -378,7 +351,7 @@ function bindMarkdownEditorDropEvents(editor) {
         if (files[i].type.startsWith("image")) {
           // Drop image
           const imageDropAction = atom.config.get(
-            "markdown-preview-enhanced.imageDropAction",
+            "markdown-preview-enhanced-with-litvis.imageDropAction",
           );
           if (imageDropAction === "upload") {
             // upload image
@@ -409,7 +382,9 @@ function bindMarkdownEditorDropEvents(editor) {
             event.preventDefault();
             MarkdownPreviewEnhancedView.pasteImageFile(
               editor,
-              atom.config.get("markdown-preview-enhanced.imageFolderPath"),
+              atom.config.get(
+                "markdown-preview-enhanced-with-litvis.imageFolderPath",
+              ),
               imageFilePath,
             );
           }
@@ -448,8 +423,10 @@ function createTOC() {
 }
 
 function toggleScrollSync() {
-  const flag = atom.config.get("markdown-preview-enhanced.scrollSync");
-  atom.config.set("markdown-preview-enhanced.scrollSync", !flag);
+  const flag = atom.config.get(
+    "markdown-preview-enhanced-with-litvis.scrollSync",
+  );
+  atom.config.set("markdown-preview-enhanced-with-litvis.scrollSync", !flag);
 
   if (!flag) {
     atom.notifications.addInfo("Scroll Sync enabled");
@@ -459,8 +436,10 @@ function toggleScrollSync() {
 }
 
 function toggleLiveUpdate() {
-  const flag = atom.config.get("markdown-preview-enhanced.liveUpdate");
-  atom.config.set("markdown-preview-enhanced.liveUpdate", !flag);
+  const flag = atom.config.get(
+    "markdown-preview-enhanced-with-litvis.liveUpdate",
+  );
+  atom.config.set("markdown-preview-enhanced-with-litvis.liveUpdate", !flag);
 
   if (!flag) {
     atom.notifications.addInfo("Live Update enabled");
@@ -471,9 +450,12 @@ function toggleLiveUpdate() {
 
 function toggleBreakOnSingleNewLine() {
   const flag = atom.config.get(
-    "markdown-preview-enhanced.breakOnSingleNewLine",
+    "markdown-preview-enhanced-with-litvis.breakOnSingleNewLine",
   );
-  atom.config.set("markdown-preview-enhanced.breakOnSingleNewLine", !flag);
+  atom.config.set(
+    "markdown-preview-enhanced-with-litvis.breakOnSingleNewLine",
+    !flag,
+  );
 
   if (!flag) {
     atom.notifications.addInfo("Enabled breaking on single newline");
@@ -550,9 +532,12 @@ function insertPageBreak() {
 
 function toggleZenMode() {
   const enableZenMode = atom.config.get(
-    "markdown-preview-enhanced.enableZenMode",
+    "markdown-preview-enhanced-with-litvis.enableZenMode",
   );
-  atom.config.set("markdown-preview-enhanced.enableZenMode", !enableZenMode);
+  atom.config.set(
+    "markdown-preview-enhanced-with-litvis.enableZenMode",
+    !enableZenMode,
+  );
   if (!enableZenMode) {
     atom.notifications.addInfo("zen mode enabled");
   } else {
@@ -696,9 +681,11 @@ async function onModifySource(
 }
 
 mume.MarkdownEngine.onModifySource(onModifySource);
+mume.MarkdownEngine.onUpdateLintingReport(updateLintingReport);
 
 export function deactivate() {
   subscriptions.dispose();
 }
 
 export { configSchema as config } from "./config-schema";
+export { consumeIndie } from "./linting";

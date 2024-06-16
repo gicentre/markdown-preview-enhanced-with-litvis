@@ -2,23 +2,23 @@
 'context-menu':
     'atom-text-editor': [
         {
-            'label': 'Markdown Preview Enhanced'
+            'label': 'Markdown Preview Enhanced with litvis'
             'submenu': [
                 {
                     'label': 'Toggle preview'
-                    'command': 'markdown-preview-enhanced:toggle'
+                    'command': 'markdown-preview-enhanced-with-litvis:toggle'
                 }
             ]
         }
     ],
     'atom-workspace atom-text-editor[data-grammar*="gfm"]': [
         {
-            'label': 'Markdown Preview Enhanced',
-            'command': 'markdown-preview-enhanced:sync-preview'
+            'label': 'Markdown Preview Enhanced with litvis',
+            'command': 'markdown-preview-enhanced-with-litvis:sync-preview'
             'submenu': [
                 {
                     'label': 'Sync Preview'
-                    'command': 'markdown-preview-enhanced:sync-preview'
+                    'command': 'markdown-preview-enhanced-with-litvis:sync-preview'
                 }
             ]
         }
@@ -27,15 +27,15 @@
     {
         'label': 'Packages'
         'submenu': [
-            'label': 'Markdown Preview Enhanced'
+            'label': 'Markdown Preview Enhanced with litvis'
             'submenu': [
                 {
                     'label': 'Toggle preview'
-                    'command': 'markdown-preview-enhanced:toggle'
+                    'command': 'markdown-preview-enhanced-with-litvis:toggle'
                 },
                 {
                     'label': 'Sync Preview'
-                    'command': 'markdown-preview-enhanced:sync-preview'
+                    'command': 'markdown-preview-enhanced-with-litvis:sync-preview'
                 }
             ]
         ]
