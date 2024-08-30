@@ -1,6 +1,6 @@
-import { MarkdownEngineConfig } from "@shd101wyy/mume";
-import { MathRenderingOption } from "@shd101wyy/mume/out/src/markdown-engine-config";
 import { CompositeDisposable } from "atom";
+import { MarkdownEngineConfig } from "mume-with-litvis";
+import { MathRenderingOption } from "mume-with-litvis/out/src/markdown-engine-config";
 
 const copyValue = (v) => v;
 const parseJsonOrDefault = (def: any) => (raw: any) => {
@@ -150,7 +150,9 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
     for (const name in ConfigSettings) {
       if (ConfigSettings.hasOwnProperty(name)) {
         const transform = ConfigSettings[name];
-        const rawValue = atom.config.get(`markdown-preview-enhanced.${name}`);
+        const rawValue = atom.config.get(
+          `markdown-preview-enhanced-with-litvis.${name}`,
+        );
         this[name] = transform(rawValue);
       }
     }
@@ -161,7 +163,7 @@ export class MarkdownPreviewEnhancedConfig implements MarkdownEngineConfig {
       if (ConfigSettings.hasOwnProperty(name)) {
         const transform = ConfigSettings[name];
         const subscription = atom.config.onDidChange(
-          `markdown-preview-enhanced.${name}`,
+          `markdown-preview-enhanced-with-litvis.${name}`,
           ({ newValue }) => {
             this[name] = transform(newValue);
             callback();
