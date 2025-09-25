@@ -1,83 +1,93 @@
-<h1 align="center"> Markdown Preview Enhanced </h1>
-<p align="center">
-<a href="https://github.com/shd101wyy/markdown-preview-enhanced/releases"><img src="https://img.shields.io/github/tag/shd101wyy/markdown-preview-enhanced.svg"></a>
-<a href="https://github.com/shd101wyy/markdown-preview-enhanced"><img src="https://img.shields.io/apm/dm/markdown-preview-enhanced.svg"></a>
-<a href="https://github.com/shd101wyy/markdown-preview-enhanced"><img src="https://img.shields.io/github/stars/shd101wyy/markdown-preview-enhanced.svg?style=social&label=Star"></a>
-</p>
-<br>
+# Atom `markdown-preview-enhanced` with [litvis](http://litvis.org/)
 
-![intro](https://user-images.githubusercontent.com/1908863/28227953-eb6eefa4-68a1-11e7-8769-96ea83facf3b.png)
+> **Note:** Atom has reached end of life. See [vscode-markdown-preview-enhanced-with-litvis](https://github.com/gicentre/vscode-markdown-preview-enhanced-with-litvis) for a modern alternative.
 
-<p align="center">
-<a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/"> English &nbsp;&nbsp; </a>
-<a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/"> 简体中文 &nbsp;&nbsp; </a>
-<a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-tw/"> 正體中文 &nbsp;&nbsp; </a>
-<a href="https://shd101wyy.github.io/markdown-preview-enhanced/#/ja-jp/"> 日本語 &nbsp;&nbsp; </a> <br>
-</p>
+This project is a fork of [`markdown-preview-enhanced`](https://github.com/shd101wyy/markdown-preview-enhanced), which is a popular [Atom package](https://atom.io/packages/markdown-preview-enhanced) for previewing markdown files.
+Most of the code in this fork is inherited from the upstream repository and is thus courtesy of [@shd101wyy](https://github.com/shd101wyy) and other [contributors](https://github.com/shd101wyy/markdown-preview-enhanced/graphs/contributors) to `markdown-preview-enhanced`.
 
-<p align="center">
-<a href="https://atom.io/packages/markdown-preview-enhanced">atom</a>
-&
-<a href="https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced">vscode</a>
-</p>
+The fork produces an Atom package called [`markdown-preview-enhanced-with-litvis`](https://atom.io/packages/markdown-preview-enhanced-with-litvis), which enables _Literate Visualisation_ ([litvis](http://litvis.org/)) in rendered markdown previews.
 
-If you are interested, please also try out our new prototype web app: [0xGG/crossnote](https://github.com/0xGG/crossnote)
+Litvis functionality has been designed and developed at [giCentre](https://www.gicentre.net/) by [Jo Wood](https://github.com/jwoLondon), [Alexander Kachkaev](https://github.com/kachkaev) and [Jason Dykes](https://github.com/jsndyks).
+This research was in part supported by the EU under the EC Grant Agreement No. FP7-IP-608142 to Project [VALCRI](http://valcri.org/).
 
-## Supporting this project
+## Prerequisites
 
-Markdown Preview Enhanced is an open source project released under the [University of Illinois/NCSA Open Source License](LICENSE.md). Its ongoing development is made possible thanks to the support by these awesome [backers](https://shd101wyy.github.io/markdown-preview-enhanced/#/backers). You can help make this project better by [supporting us on GitHub Sponsors](https://github.com/sponsors/shd101wyy), [PayPal](https://shd101wyy.github.io/markdown-preview-enhanced/#/paypal), or [微信支付 Wechat Pay](https://shd101wyy.github.io/markdown-preview-enhanced/#/wechat). Thank you!
+Please ensure that you have `elm` installed on your machine before proceeding to the setup.
+The following command will ensure that this tool is in place and is up-to-date.
 
-## Sponsors
+```bash
+npm install --global elm
+```
 
-<p><a title="Try CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&amp;utm_campaign=shd101wyy-markdown&amp;utm_medium=banner"><img src="https://alt-images.codestream.com/codestream_logo_shd101wyy-markdown.png"></a></br>
-Manage pull requests and conduct code reviews in your IDE with full source-tree context. Comment on any line, not just the diffs. Use jump-to-definition, your favorite keybindings, and code intelligence with more of your workflow.<br> <a title="Try CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&amp;utm_campaign=shd101wyy-markdown&amp;utm_medium=banner">Learn More</a></p>
+If you don’t have npm, please download it as a part of Node.js from https://nodejs.org/.
 
-<br>
+## Setup for Atom users
 
-<a href="https://github.com/sponsors/shd101wyy">
-  <img src="https://github.blog/wp-content/uploads/2019/05/mona-heart-featured.png?" width="200"></a><br>
+### Via Atom’s GUI
 
-These [GitHub Sponsors](https://github.com/sponsors/shd101wyy#sponsors) and [Backers](https://shd101wyy.github.io/markdown-preview-enhanced/#/backers) help push this project forward 🎉.
+1.  Go to _Preferences_ → _Packages_ and disable `markdown-preview` (Atom’s standard preview tool)
 
-## Introduction
+1.  If you are using `markdown-preview-enhanced`, temporary disable it too while you are trying out this fork.
 
-Markdown Preview Enhanced is an extension that provides you with many useful functionalities such as automatic scroll sync, [math typesetting](https://shd101wyy.github.io/markdown-preview-enhanced/#/math), [mermaid](https://shd101wyy.github.io/markdown-preview-enhanced/#/diagrams?id=mermaid), [PlantUML](https://shd101wyy.github.io/markdown-preview-enhanced/#/diagrams?id=plantuml), [pandoc](https://shd101wyy.github.io/markdown-preview-enhanced/#/pandoc), PDF export, [code chunk](https://shd101wyy.github.io/markdown-preview-enhanced/#/code-chunk), [presentation writer](https://rawgit.com/shd101wyy/markdown-preview-enhanced/master/docs/presentation-intro.html), etc. A lot of its ideas are inspired by [Markdown Preview Plus](https://github.com/atom-community/markdown-preview-plus) and [RStudio Markdown](http://rmarkdown.rstudio.com/).
+1.  Switch to _Install_ section in _Preferences_ and search for `markdown-preview-enhanced-with-litvis`.
+    Click _Install_ and reload Atom.
 
-Feel free to ask questions, post issues, submit pull request, and request new features.
+### Via command line
 
-For more information about this project and how to use this extension, please check out our documentation ⬇︎
+This section contains shortcut commands for the instructions above.
 
-## Documentation
+```
+apm disable markdown-preview
+apm disable markdown-preview-enhanced
+apm install markdown-preview-enhanced-with-litvis
+```
 
-To check out the documentation, visit
+## Getting started with litvis narratives
 
-- [English](https://shd101wyy.github.io/markdown-preview-enhanced/#/)
-- [简体中文](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-cn/)
-- [正體中文](https://shd101wyy.github.io/markdown-preview-enhanced/#/zh-tw/)
-- [日本語](https://shd101wyy.github.io/markdown-preview-enhanced/#/ja-jp/)
+Literate visualization uses [Elm](http://elm-lang.org) and [Vega-Lite](https://vega.github.io/vega-lite) in the form of a declarative visualization language [elm-vega](http://package.elm-lang.org/packages/gicentre/elm-vega/latest).
+While you don't have to use elm-vega in a litvis document, it does enable quick declarative generation of interactive data graphics and therefore considerably enhances the capability of a litvis document.
 
-Contact me if you are willing to help translate the documentation :)
+Creating your own litvis narrative is as easy as writing a markdown file.
+You can start with exploring the examples available at
+https://github.com/gicentre/litvis/tree/master/examples.
 
-## Keybindings
+## Formatting litvis narratives
 
-> The <kbd>cmd</kbd> key for _Windows_ is <kbd>ctrl</kbd>.
+It is possible to automatically format litvis-enabled markdown files (including Elm code blocks) using [Prettier](https://prettier.io/), which is a popular code formatting tool.
 
-| Shortcuts                                   | Functionality              |
-| ------------------------------------------- | -------------------------- |
-| <kbd>ctrl-shift-m</kbd>                     | Toggle preview             |
-| <kbd>ctrl-shift-s</kbd>                     | Sync preview / Sync source |
-| <kbd>shift-enter</kbd>                      | Run Code Chunk             |
-| <kbd>ctrl-shift-enter</kbd>                 | Run all Code Chunks        |
-| <kbd>cmd-=</kbd> or <kbd>cmd-shift-=</kbd>  | Preview zoom in            |
-| <kbd>cmd--</kbd> or <kbd>cmd-shift-\_</kbd> | Preview zoom out           |
-| <kbd>cmd-0</kbd>                            | Preview reset zoom         |
-| <kbd>esc</kbd>                              | Toggle sidebar TOC         |
+Prettier is available in Atom via [`prettier-atom`](https://github.com/prettier/prettier-atom) package, but it does not format literate Elm code blocks in markdown files out of the box.
 
-## Changelog
+Please follow these steps to enable full-featured formatting support for litvis in Atom:
 
-Newest updates for the current minor version can be found at the [newest notes](https://shd101wyy.github.io/markdown-preview-enhanced/#/newest).
-Detailed changes for each old release can be found at [history notes](https://shd101wyy.github.io/markdown-preview-enhanced/#/history).
+1.  Globally install Prettier and its [Elm plugin](https://github.com/gicentre/prettier-plugin-elm) via npm:
 
-## License
+    ```
+    npm install --global prettier prettier-plugin-elm
+    ```
 
-[University of Illinois/NCSA Open Source License](LICENSE.md)
+1.  Install `prettier-atom` package via Atom’s _Preferences_ or from a command line:
+
+    ```bash
+    apm install prettier-atom
+    ```
+
+1.  Enable _Format on save_ in `prettier-atom` package preferences.
+
+## Getting linting feedback for litvis narratives
+
+When a currently opened litvis narrative contains issues such as errors in Elm code blocks, you are automatically shown a list of problems via Atom's built-in linter.
+
+![kapture 2018-03-26 at 21 00 45](https://user-images.githubusercontent.com/608862/37930310-4ba86c40-313a-11e8-99f5-a6b7ac99f38c.gif)
+
+If you have used Atom linting for any programming language before, all the necessary packages should be already installed.
+Otherwise, please install Atom packages named [`linter`](https://atom.io/packages/linter), [`linter-ui-default`](https://atom.io/packages/linter-ui-default), [`intentions`](https://atom.io/packages/intentions) and [`busy-signal`](https://atom.io/packages/busy-signal).
+
+You will be prompted to do so when you open a litvis document for the first time.
+Alternatively, you can install the packages via Atom’s _Preferences_ or by using the following command:
+
+```bash
+apm install linter linter-ui-default intentions busy-signal
+```
+
+When you are working on branching litvis narratives or those depending on narrative schemas, you may benefit from going to `linter-ui-default` settings and changing _Panel Represents_ parameter to _Entire project_.
+This will make the list of reported issues more informative.

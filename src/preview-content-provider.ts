@@ -1,6 +1,6 @@
-import * as mume from "@shd101wyy/mume";
 import { CompositeDisposable, TextEditor } from "atom";
 import * as fs from "fs";
+import * as mume from "mume-with-litvis";
 import * as path from "path";
 import { MarkdownPreviewEnhancedConfig } from "./config";
 
@@ -455,7 +455,10 @@ export class MarkdownPreviewEnhancedView {
       atom.workspace.open(imageHistoryFilePath);
     },
     setPreviewTheme(sourceUri, previewTheme) {
-      atom.config.set("markdown-preview-enhanced.previewTheme", previewTheme);
+      atom.config.set(
+        "markdown-preview-enhanced-with-litvis.previewTheme",
+        previewTheme,
+      );
     },
   };
 
@@ -510,7 +513,7 @@ export class MarkdownPreviewEnhancedView {
 
     this.disposables.add(
       atom.commands.add(editorElement, {
-        "markdown-preview-enhanced:sync-preview": () => {
+        "markdown-preview-enhanced-with-litvis:sync-preview": () => {
           this.syncPreview(true);
         },
       }),
@@ -590,7 +593,7 @@ export class MarkdownPreviewEnhancedView {
     // I created command.
     this.disposables.add(
       atom.commands.add(this.element, {
-        "markdown-preview-enhanced:esc-pressed": () => {
+        "markdown-preview-enhanced-with-litvis:esc-pressed": () => {
           // tslint:disable-next-line:no-console
           console.log("esc pressed");
         },
@@ -1100,11 +1103,13 @@ export class MarkdownPreviewEnhancedView {
     const hint = `![Uploading ${imageFileName}… (${uid})]()`;
     const bufferRow = editor.getCursorBufferPosition().row;
     const AccessKey =
-      atom.config.get("markdown-preview-enhanced.AccessKey") || "";
+      atom.config.get("markdown-preview-enhanced-with-litvis.AccessKey") || "";
     const SecretKey =
-      atom.config.get("markdown-preview-enhanced.SecretKey") || "";
-    const Bucket = atom.config.get("markdown-preview-enhanced.Bucket") || "";
-    const Domain = atom.config.get("markdown-preview-enhanced.Domain") || "";
+      atom.config.get("markdown-preview-enhanced-with-litvis.SecretKey") || "";
+    const Bucket =
+      atom.config.get("markdown-preview-enhanced-with-litvis.Bucket") || "";
+    const Domain =
+      atom.config.get("markdown-preview-enhanced-with-litvis.Domain") || "";
 
     editor.insertText(hint);
 

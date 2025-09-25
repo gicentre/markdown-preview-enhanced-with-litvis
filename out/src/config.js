@@ -80,7 +80,7 @@ class MarkdownPreviewEnhancedConfig {
         for (const name in ConfigSettings) {
             if (ConfigSettings.hasOwnProperty(name)) {
                 const transform = ConfigSettings[name];
-                const rawValue = atom.config.get(`markdown-preview-enhanced.${name}`);
+                const rawValue = atom.config.get(`markdown-preview-enhanced-with-litvis.${name}`);
                 this[name] = transform(rawValue);
             }
         }
@@ -92,7 +92,7 @@ class MarkdownPreviewEnhancedConfig {
         for (const name in ConfigSettings) {
             if (ConfigSettings.hasOwnProperty(name)) {
                 const transform = ConfigSettings[name];
-                const subscription = atom.config.onDidChange(`markdown-preview-enhanced.${name}`, ({ newValue }) => {
+                const subscription = atom.config.onDidChange(`markdown-preview-enhanced-with-litvis.${name}`, ({ newValue }) => {
                     this[name] = transform(newValue);
                     callback();
                 });
