@@ -1,5 +1,7 @@
 # Atom `markdown-preview-enhanced` with [litvis](http://litvis.org/)
 
+> **Note:** Atom has reached end of life. See [vscode-markdown-preview-enhanced-with-litvis](https://github.com/gicentre/vscode-markdown-preview-enhanced-with-litvis) for a modern alternative.
+
 This project is a fork of [`markdown-preview-enhanced`](https://github.com/shd101wyy/markdown-preview-enhanced), which is a popular [Atom package](https://atom.io/packages/markdown-preview-enhanced) for previewing markdown files.
 Most of the code in this fork is inherited from the upstream repository and is thus courtesy of [@shd101wyy](https://github.com/shd101wyy) and other [contributors](https://github.com/shd101wyy/markdown-preview-enhanced/graphs/contributors) to `markdown-preview-enhanced`.
 
